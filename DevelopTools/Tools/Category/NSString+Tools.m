@@ -447,7 +447,11 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
     if (iOS_SYSTEM_LATER(8)) {
         returnStr = [NSPropertyListSerialization propertyListWithData:tempData options:NSPropertyListImmutable format:nil error:NULL];
     }else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored"-Wdeprecated-declarations"
         returnStr = [NSPropertyListSerialization propertyListFromData:tempData mutabilityOption:NSPropertyListImmutable format:nil errorDescription:NULL];
+#pragma clang diagnostic pop
+        
     }
     
     return [returnStr stringByReplacingOccurrencesOfString:@"\\r\\n"withString:@"\n"];
@@ -583,6 +587,32 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
         return YES;
     }
     return  NO;
+}
+
+@end
+
+@implementation NSString (Runtime)
+
++ (NSString *)decodeType:(const char *)cString {
+    if (!strcmp(cString, @encode(id))) return @"id";
+    if (!strcmp(cString, @encode(void))) return @"void";
+    if (!strcmp(cString, @encode(float))) return @"float";
+    if (!strcmp(cString, @encode(int))) return @"int";
+    if (!strcmp(cString, @encode(BOOL))) return @"BOOL";
+    if (!strcmp(cString, @encode(char *))) return @"char *";
+    if (!strcmp(cString, @encode(double))) return @"double";
+    if (!strcmp(cString, @encode(Class))) return @"class";
+    if (!strcmp(cString, @encode(SEL))) return @"SEL";
+    if (!strcmp(cString, @encode(unsigned int))) return @"unsigned int";
+    NSString *result = [NSString stringWithCString:cString encoding:NSUTF8StringEncoding];
+    if ([[result substringToIndex:1] isEqualToString:@"@"] && [result rangeOfString:@"?"].location == NSNotFound) {
+        result = [[result substringWithRange:NSMakeRange(2, result.length - 3)] stringByAppendingString:@"*"];
+    } else
+        if ([[result substringToIndex:1] isEqualToString:@"^"]) {
+            result = [NSString stringWithFormat:@"%@ *",
+                      [NSString decodeType:[[result substringFromIndex:1] cStringUsingEncoding:NSUTF8StringEncoding]]];
+        }
+    return result;
 }
 
 @end

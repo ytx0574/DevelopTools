@@ -9,7 +9,7 @@
 #import "UIActionSheet+Tools.h"
 #import <objc/runtime.h>
 
-@interface UIActionSheet ()<UIActionSheetDelegate>
+@interface UIActionSheet () <UIActionSheetDelegate>
 
 @property (nonatomic, copy) void(^complete)(NSInteger buttonIndex, UIActionSheet *actionSheet);
 

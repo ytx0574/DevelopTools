@@ -129,6 +129,122 @@
 
 @end
 
+#pragma mark - Runtime
+@interface NSObject (Runtime)
+
+/**
+ *  获取当前所以子类
+ *
+ *  @return <#return value description#>
+ */
++ (NSArray *)runtimeSubClasses;
+- (NSArray *)runtimeSubClasses;
+
+/**
+ *  获取父类
+ *
+ *  @return <#return value description#>
+ */
++ (NSString *)runtimeParentClassHierarchy;
+- (NSString *)runtimeParentClassHierarchy;
+
+/**
+ *  获取当前类的类方法
+ *
+ *  @return <#return value description#>
+ */
++ (NSArray *)runtimeClassMethods;
+- (NSArray *)runtimeClassMethods;
+
+/**
+ *  获取当前类的实例方法
+ *
+ *  @return <#return value description#>
+ */
++ (NSArray *)runtimeInstanceMethods;
+- (NSArray *)runtimeInstanceMethods;
+
+/**
+ *  或者实例大小
+ *
+ *  @return <#return value description#>
+ */
++ (size_t)runtimeInstanceSize;
+- (size_t)runtimeInstanceSize;
+
+/**
+ *  或取当前类所以属性
+ *
+ *  @return <#return value description#>
+ */
++ (NSArray *)runtimeProperties;
+- (NSArray *)runtimeProperties;
+
+/**
+ *  获取当前类实现的所有协议
+ *
+ *  @return <#return value description#>
+ */
++ (NSArray *)runtimeProtocols;
+- (NSArray *)runtimeProtocols;
+
+/**
+ *  获取某个对象所有实例方法
+ *
+ *  @param class 对象类型
+ *
+ *  @return <#return value description#>
+ */
+- (NSArray *)instanceMethodList:(Class)class;
+/**
+ *  获取某个对象的所有实例变量
+ *
+ *  @param class <#class description#>
+ *
+ *  @return <#return value description#>
+ */
+- (NSMutableArray *)ivarList:(Class)class;
+/**
+ *  获取某个对象的所有属性
+ *
+ *  @param class <#class description#>
+ *
+ *  @return <#return value description#>
+ */
+- (NSMutableArray *)propertyList:(Class)class;
+/**
+ *  获取某个对象的所有实例变量及值
+ *
+ *  @param class <#class description#>
+ *
+ *  @return <#return value description#>
+ */
+- (NSMutableDictionary *)getAllIvarAndVelues:(Class)class;
+/**
+ *  获取某个对象的所有属性及值
+ *
+ *  @param class <#class description#>
+ *
+ *  @return <#return value description#>
+ */
+- (NSMutableDictionary *)getAllPropertiesAndVaules:(Class)class;
+/**
+ *  根据值获取属性名称
+ *
+ *  @param value <#value description#>
+ *
+ *  @return <#return value description#>
+ */
+- (NSString *)getPropertyNameForValue:(id)value;
+/**
+ *  log对象属性信息
+ *
+ *  @param showPropertyValue 显示属性值
+ */
+- (NSString *)Log:(BOOL)showPropertyValue;
+
+@end
+
 #pragma mark - 文件管理
 @interface NSObject (FileManager)
 
@@ -386,7 +502,6 @@
 @end
 
 #pragma mark - 获取当前设备名称
-
 @interface NSObject (UIDeviceType)
 
 /**
@@ -395,71 +510,5 @@
  *  @return 返回设备名称
  */
 + (NSString *)getDeviceType;
-
-@end
-
-#pragma mark - 获取对象的信息
-@interface NSObject (ClassInformation)
-
-/**
- *  获取某个对象所有实例方法
- *
- *  @param class 对象类型
- *
- *  @return <#return value description#>
- */
-- (NSArray *)instanceMethodList:(Class)class;
-
-/**
- *  获取某个对象的所有实例变量
- *
- *  @param class <#class description#>
- *
- *  @return <#return value description#>
- */
-- (NSMutableArray *)ivarList:(Class)class;
-
-/**
- *  获取某个对象的所有属性
- *
- *  @param class <#class description#>
- *
- *  @return <#return value description#>
- */
-- (NSMutableArray *)propertyList:(Class)class;
-
-/**
- *  获取某个对象的所有实例变量及值
- *
- *  @param class <#class description#>
- *
- *  @return <#return value description#>
- */
-- (NSMutableDictionary *)getAllIvarAndVelues:(Class)class;
-
-/**
- *  获取某个对象的所有属性及值
- *
- *  @param class <#class description#>
- *
- *  @return <#return value description#>
- */
-- (NSMutableDictionary *)getAllPropertiesAndVaules:(Class)class;
-
-/**
- *  根据值获取属性名称
- *
- *  @param value <#value description#>
- *
- *  @return <#return value description#>
- */
-- (NSString *)getPropertyNameForValue:(id)value;
-
-/**
- *  log对象属性信息
- *
- *  @param showPropertyValue 显示属性值
- */
-- (NSString *)Log:(BOOL)showPropertyValue;
 
 @end

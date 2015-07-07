@@ -7,6 +7,7 @@
 //
 
 #import "UILabel+Tools.h"
+#import "GlobalMacro.h"
 
 @implementation UILabel(Tools)
 
@@ -17,8 +18,7 @@
 
 - (CGSize)sizeOfText:(CGFloat)width
 {
-    CGSize size = [[[UIDevice currentDevice] systemVersion] floatValue] >= 7 ? [self.text boundingRectWithSize:CGSizeMake(width, NSIntegerMax) options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: self.font} context:nil].size : [self.text sizeWithFont:self.font constrainedToSize:CGSizeMake(width, NSIntegerMax)];
-    return size;
+    return STRING_WITH_SIZE_AND_DEFAULT_HEIGHT(self.text, self.font, width);
 }
 
 - (void)alignTop

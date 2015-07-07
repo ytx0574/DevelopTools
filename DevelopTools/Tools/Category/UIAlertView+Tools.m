@@ -9,7 +9,7 @@
 #import "UIAlertView+Tools.h"
 #import <objc/runtime.h>
 
-@interface UIAlertView ()<UIAlertViewDelegate>
+@interface UIAlertView () <UIAlertViewDelegate>
 @property (nonatomic, copy) void(^complete)(NSInteger buttonIndex, UIAlertView *alertView);
 @end
 

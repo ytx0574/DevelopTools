@@ -186,3 +186,9 @@
 
 @end
 
+
+@interface NSString (Runtime)
+
++ (NSString *)decodeType:(const char *)cString;
+
+@end

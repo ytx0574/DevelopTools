@@ -7,19 +7,24 @@
 //
 
 #pragma mark - DEBUG
-#ifdef DEBUG
+#ifdef  DEBUG
+
 #define NSOBJECT_TOOLS_DEBUG YES
 #define PRINT_JOSN_STRING NO
 #define NSLog(FORMAT, ...) fprintf(stderr,"\nfunction:%s line:%d content:\n%s\n", __FUNCTION__, __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
 #define ALERT_LOG(msg)                                   [[[UIAlertView alloc]initWithTitle:@"提示" message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil] show]
-#define DEALLOC_LOG  - (void)dealloc{    NSLog(@"◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊ dealloc Class:%@\n %@",self, NO ?  [NSString stringWithFormat:@"Class_Information:%@",[self Log:NO]] : EMPTY_STRING);}
+#define DEALLOC_LOG  - (void)dealloc{    NSLog(@"◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊ dealloc Class:%@\n %@",self, NO ?  [NSString stringWithFormat:@"Class_Information:%@", [self Log:NO]] : EMPTY_STRING);}
+
 #else
+
 #define NSOBJECT_TOOLS_DEBUG NO
 #define PRINT_JOSN_STRING NO
 #define NSLog(FORMAT, ...) nil;
 #define ALERT_LOG(msg)
 #define DEALLOC_LOG
+
 #endif
+
 
 #pragma mark - Syetem
 /**状态栏高度*/
@@ -29,8 +34,8 @@
 /**导航栏高度*/
 #define NAVIGATIONBAR_HEIGHT                      44
 /**屏幕 宽高*/
-#define SCREEN_WIDTH                              [[UIScreen mainScreen]bounds].size.width
-#define SCREEN_HEIGHT                             [[UIScreen mainScreen]bounds].size.height
+#define SCREEN_WIDTH                              [[UIScreen mainScreen] bounds].size.width
+#define SCREEN_HEIGHT                             [[UIScreen mainScreen] bounds].size.height
 #define SCREEN_SCALE_WIDTH                        (SCREEN_WIDTH / 320.f)
 #define SCREEN_SCALE_HEIGHT                       (SCREEN_HEIGHT / 480.f)
 /**判断屏幕大小*/
@@ -46,9 +51,9 @@
 /**版本不一致的代码*/
 #define MATCHING_SYSTEM_VERSION_CODE_LATER_ADN_EARLIER(isVersionLater, later, earlier)   if (isVersionLater){later;}else{earlier;}
 /**iOS 8 7 6  的判定*/
-#define iOS8       (iOS_SYSTEM_VERSION(8) ? YES : NO)
-#define iOS7       (iOS_SYSTEM_VERSION(7) ? YES : NO)
-#define iOS6       (iOS_SYSTEM_VERSION(6) ? YES : NO)
+#define iOS8                 (iOS_SYSTEM_VERSION(8) ? YES : NO)
+#define iOS7                 (iOS_SYSTEM_VERSION(7) ? YES : NO)
+#define iOS6                 (iOS_SYSTEM_VERSION(6) ? YES : NO)
 #define iOS7_AND_LATER       (iOS_SYSTEM_LATER(7) ? YES : NO)
 
 #pragma mark - System class or path
@@ -57,7 +62,7 @@
 /**AppDelegate对象*/
 #define APPDELEGATE_INSTANCE            ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 /**App主目录   可见子目录(3个):Documents、Library、tmp*/
-#define APP_PATH NSHomeDirectory()
+#define APP_PATH                        NSHomeDirectory()
 /**Documents路径   文档目录(ITUNES要同步)*/
 #define APP_DOCUMENTS_PATH              [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject]
 /**Library路径   资源目录*/
@@ -86,22 +91,21 @@
 /**获取MAINBUNDLE*/
 #define MAIN_BUNDLE                                    [NSBundle mainBundle]
 /**获取bundle文件路径*/
-#define BANDLE_FILE_PATH(filename,extension)           [MAIN_BUNDLE pathForResource:filename ofType:extension]
+#define BANDLE_FILE_PATH(filename, extension)          [MAIN_BUNDLE pathForResource:filename ofType:extension]
 /**加载图片  内存*/
 #define LOAD_IMAGE(filename)                           [UIImage imageNamed:filename]
 //**加载图片(bundle中获取自动添加png后缀)  从文件加载*/
 #define LOAD_IMAGE_WITH_FILE_FROM_BUNDLE(filename)     [UIImage imageWithContentsOfFile:BANDLE_FILE_PATH(BANDLE_FILE_PATH(filename, @"png") ? filename : ([filename stringByAppendingFormat:@"@%@x", isSizeOf_5_5 ? @"3" : @"2"]), @"png")]
 //#define LOAD_IMAGE_WITH_FILE_FROM_BUNDLE(filename)     [UIImage imageWithContentsOfFile:BANDLE_FILE_PATH(BANDLE_FILE_PATH(filename, @"png") ? filename : [filename stringByAppendingString:@"@2x"],@"png")]
+
 /**加载图片  从文件加载*/
 #define LOAD_IMAGE_WITH_FILE_PATH(path)                [UIImage imageWithContentsOfFile:path]
-/**设置View的tag属性*/
-#define VIEW_WITH_TAG(view, tag)                       [view viewWithTag:tag]
 /**设置数组值.*/
-#define SET_ARRAY(_arrayWith__,tempArray)                                  _arrayWith__ = [NSArray arrayWithArray:tempArray]
-#define SET_MUTABLEARRAY(_arrayWith__,tempArray)                           _arrayWith__ = [NSMutableArray arrayWithArray:tempArray]
+#define SET_ARRAY(_arrayWith__, tempArray)                                  _arrayWith__ = [NSArray arrayWithArray:tempArray]
+#define SET_MUTABLEARRAY(_arrayWith__, tempArray)                           _arrayWith__ = [NSMutableArray arrayWithArray:tempArray]
 /**设置字典值.*/
-#define SET_DICATIONARY(_dicationaryWith__,tempDicationary)                _dicationaryWith__ = [NSDicationary dictionaryWithDictionary:tempDicationary]
-#define SET_MUTABLEDICATIONARY(_dicationaryWith__,tempDicationary)         _dicationaryWith__ = [NSMutableDicationary dictionaryWithDictionary:tempDicationary]
+#define SET_DICATIONARY(_dicationaryWith__, tempDicationary)                _dicationaryWith__ = [NSDicationary dictionaryWithDictionary:tempDicationary]
+#define SET_MUTABLEDICATIONARY(_dicationaryWith__, tempDicationary)         _dicationaryWith__ = [NSMutableDicationary dictionaryWithDictionary:tempDicationary]
 
 /**设置单例 (前面和后面)*/
 #define SHAREINSTANCE_FOR_CLASS_HEADER \
@@ -144,6 +148,8 @@ va_end(list);\
 #define JUDGE_IF(condition, contentWithTrue)                           if (condition) {contentWithTrue;}
 /**if else 判定*/
 #define JUDGE_IF_ELSE(condition, contentWithTrue, contentWithFalse)    if (condition) {contentWithTrue;}else {contentWithFalse;}
+/**条件满足 ruturn*/
+#define IF_RETURN(condition)                                           if (condition) {return;}
 
 #pragma mark - View frame
 #define RECT(x, y, width, height)                        (CGRect){x, y, width, height}
@@ -171,43 +177,36 @@ va_end(list);\
 /**强制转换*/
 #define CONVERTION_TYPE(classType, object)           ((classType *)object)
 /**普通类型直接转为字符串*/
-#define STRINGFORMAT(value)                          [NSString stringWithFormat:@"%@",value]
+#define STRINGFORMAT(value)                          [NSString stringWithFormat:@"%@", value]
 #if __LP64__
-    #define STRINGFORMATWITH_INT(value)              [NSString stringWithFormat:@"%ld",value]
+    #define STRINGFORMATWITH_INT(value)              [NSString stringWithFormat:@"%ld", value]
 #else
-    #define STRINGFORMATWITH_INT(value)              [NSString stringWithFormat:@"%d",value]
+    #define STRINGFORMATWITH_INT(value)              [NSString stringWithFormat:@"%d", value]
 #endif
-/**弹出AlterView*/
-#define ALERT(msg)                                   [[[UIAlertView alloc] initWithTitle:@"提示" message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil] show]
-/**根控制器对象*/
-#define ROOTVIEWCONTROLLER                           ((CTTabBarViewController *)APPDELEGATE_INSTANCE.window.rootViewController)
-/**根导航栏*/
-#define ROOTNAVIGATIONCONROLLER                      ((UINavigationController *)((CTTabBarViewController *)APPDELEGATE_INSTANCE.window.rootViewController).selectedViewController)
-/**当前vc*/
-#define CURRENTVIEWCONTROLLER                        ((CTViewController *)ROOTNAVIGATIONCONROLLER.viewControllers.lastObject)
 
-#define ShowTitleAlert(msg)                          [self showAlert:@"提示" message:msg delay:1];
+#define ShowTitleAlert(title, msg)                   [self showAlert:title message:msg delay:1];
+#define ShowTipsAlert(msg)                           [self showAlert:@"提示" message:msg delay:1];
 #define ShowAlert(msg)                               [self showAlert:nil message:msg delay:1];
-#define WEAK_SELF                                     __weak typeof(self) wself = self;
 
-/*
-#define SVProgressHUD_showSuccessWithStatus(msg)  [SVProgressHUD showSuccessWithStatus:msg ? msg : @"Success"];
-#define SVProgressHUD_showWithStatus(msg)         [SVProgressHUD showWithStatus:msg ? msg : @"loading"];
-#define SVProgressHUD_showErrorWithStatus(msg)    [SVProgressHUD showErrorWithStatus:msg];
+#define Alert(title, msg, buttonTitle)               [[[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:buttonTitle otherButtonTitles:nil, nil] show]
+#define AlertTitleMsgOk(title, msg)                  AlertAll(title, msg, @"确定")
+#define AlertMsgOk(msg)                              AlertAll(@"提示", msg, @"确定")
 
-#pragma mark - HttpAssist
-#define SingleData                                success:(successForHttp)success failure:(failureForHttp)failure;
-#define MultiData                                 success:(successMultiForHttp)success failure:(failureForHttp)failure;
-
-#define RequestError                              [self showAlert:@"Sorry" message:@"小U抽风了" delay:1.0f];  failure ? failure(error) : nil;
-*/
+#define WEAK_SELF                                    typeof(self) __weak wself = self;
 
 #pragma mark - Current Project
 /**全局的cell的标志 (作为服务器字段id的转化)*/
-static NSString *idIdentifier =                  @"pretang";
+static NSString *idIdentifier =              @"-Johnson-Identifier-";
 /**默认的idUbing字符串(本地出现) "idUbing"*/
 #define PROPERTY_IDUBING                     idUbing
 /**数据接收时,本地跟服务器不同的字段  默认需要转换的keys  详情见:NSObject+AccessibilityTools-> convertResponseObject:keys:*/
 #define CONVERT_RESPONSE_KEYS                @{[NSString stringWithFormat:@"\"%@\"",@"id"]: [NSString stringWithFormat:@"\"%@\"",idIdentifier]}
 /**获取唯一单条数据的唯一标识时,本地跟服务器不同的字段  默认需要转换的keys 详情见:NSObject+AccessibilityTools-> convertUnique:keys:*/
 #define CONVERT_UNIQUE_KEYS                  @{@"id": idIdentifier}
+
+/**根控制器对象*/
+#define ROOTVIEWCONTROLLER                           ((CTTabBarViewController *)APPDELEGATE_INSTANCE.window.rootViewController)
+/**根导航栏*/
+#define ROOTNAVIGATIONCONROLLER                      ((UINavigationController *)((CTTabBarViewController *)APPDELEGATE_INSTANCE.window.rootViewController).selectedViewController)
+/**当前vc*/
+#define CURRENTVIEWCONTROLLER                        ((CTViewController *)ROOTNAVIGATIONCONROLLER.viewControllers.lastObject)

@@ -106,6 +106,6 @@
     CGRect keyboardFrame = value.CGRectValue;
     CGRect rect = [self.superview convertRect:_frame toView:KEY_WINDOW];
 
-//    self.frameChangedComplete ? self.frameChangedComplete((SCREEN_HEIGHT - keyboardFrame.size.height) - (rect.size.height + rect.origin.y), [noti.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue]) : nil;
+    self.frameChangedComplete ? self.frameChangedComplete((SCREEN_HEIGHT - keyboardFrame.size.height) - (rect.size.height + rect.origin.y), [noti.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue]) : nil;
 }
 @end

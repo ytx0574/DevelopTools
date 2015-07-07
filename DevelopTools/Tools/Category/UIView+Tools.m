@@ -149,7 +149,7 @@
 
 
 #pragma mark - SDWebImage
-static char operationKey;
+//static char operationKey;
 @implementation UIView (SDWebImage)
 #define CURRENT_SDWebImageOptions SDWebImageHighPriority
 //- (NSURL *)regexUrlAndCancelCurrentImageLoad:(NSString *)urlString{

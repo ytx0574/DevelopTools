@@ -139,6 +139,345 @@
 
 @end
 
+#pragma mark - Runtime
+static void getSuper(Class class, NSMutableString *result)
+{
+    [result appendFormat:@" -> %@", NSStringFromClass(class)];
+    if ([class superclass]) { getSuper([class superclass], result); }
+}
+
+@implementation NSObject (Runtime)
+
+- (NSArray *)runtimeProperties
+{
+    return [[self class] runtimeProperties];
+}
+
++ (NSArray *)runtimeProperties
+{
+    unsigned int outCount;
+    objc_property_t *properties = class_copyPropertyList([self class], &outCount);
+    NSMutableArray *result = [NSMutableArray array];
+    for (int i = 0; i < outCount; i++) {
+        [result addObject:[self formattedPropery:properties[i]]];
+    }
+    free(properties);
+    return result.count ? [result copy] : nil;
+}
+
+- (NSString *)runtimeParentClassHierarchy
+{
+    return [[self class] runtimeParentClassHierarchy];
+}
+
++ (NSString *)runtimeParentClassHierarchy
+{
+    NSMutableString *result = [NSMutableString string];
+    getSuper([self class], result);
+    return result;
+}
+
+- (NSArray *)runtimeSubClasses
+{
+    return [[self class] runtimeSubClasses];
+}
+
++ (NSArray *)runtimeSubClasses
+{
+    Class *buffer = NULL;
+    
+    int count, size;
+    do
+    {
+        count = objc_getClassList(NULL, 0);
+        buffer = (Class *)realloc(buffer, count * sizeof(*buffer));
+        size = objc_getClassList(buffer, count);
+    } while(size != count);
+    
+    NSMutableArray *array = [NSMutableArray array];
+    for(int i = 0; i < count; i++)
+    {
+        Class candidate = buffer[i];
+        Class superclass = candidate;
+        while(superclass)
+        {
+            if(superclass == self)
+            {
+                [array addObject: candidate];
+                break;
+            }
+            superclass = class_getSuperclass(superclass);
+        }
+    }
+    free(buffer);
+    return array;
+}
+
+- (size_t)runtimeInstanceSize
+{
+    return [[self class] runtimeInstanceSize];
+}
+
++ (size_t)runtimeInstanceSize
+{
+    return class_getInstanceSize(self);
+}
+
+- (NSArray *)runtimeClassMethods
+{
+    return [[self class] runtimeClassMethods];
+}
+
++ (NSArray *)runtimeClassMethods
+{
+    return [self methodsForClass:object_getClass([self class]) typeFormat:@"+"];
+}
+
+- (NSArray *)runtimeInstanceMethods
+{
+    return [[self class] runtimeInstanceMethods];
+}
+
++ (NSArray *)runtimeInstanceMethods
+{
+    return [self methodsForClass:[self class] typeFormat:@"-"];
+}
+
+- (NSArray *)runtimeProtocols
+{
+    return [[self class] runtimeProtocols];
+}
+
++ (NSArray *)runtimeProtocols
+{
+    unsigned int outCount;
+    Protocol * const *protocols = class_copyProtocolList([self class], &outCount);
+    
+    NSMutableArray *result = [NSMutableArray array];
+    for (int i = 0; i < outCount; i++) {
+        unsigned int adoptedCount;
+        Protocol * const *adotedProtocols = protocol_copyProtocolList(protocols[i], &adoptedCount);
+        NSString *protocolName = [NSString stringWithCString:protocol_getName(protocols[i]) encoding:NSUTF8StringEncoding];
+        
+        NSMutableArray *adoptedProtocolNames = [NSMutableArray array];
+        for (int idx = 0; idx < adoptedCount; idx++) {
+            [adoptedProtocolNames addObject:[NSString stringWithCString:protocol_getName(adotedProtocols[idx]) encoding:NSUTF8StringEncoding]];
+        }
+        NSString *protocolDescription = protocolName;
+        
+        if (adoptedProtocolNames.count) {
+            protocolDescription = [NSString stringWithFormat:@"%@ <%@>", protocolName, [adoptedProtocolNames componentsJoinedByString:@", "]];
+        }
+        [result addObject:protocolDescription];
+        //free(adotedProtocols);
+    }
+    //free((__bridge void *)(*protocols));
+    return result.count ? [result copy] : nil;
+}
+
+- (NSArray *)instanceMethodList:(Class)class;
+{
+    unsigned int mothCout_f =0;
+    Method* mothList_f = class_copyMethodList(class,&mothCout_f);
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    for(int i=0;i<mothCout_f;i++)
+    {
+        Method temp_f = mothList_f[i];
+        const char* name_s =sel_getName(method_getName(temp_f));
+        //        int arguments = method_getNumberOfArguments(temp_f);
+        //        const char* encoding =method_getTypeEncoding(temp_f);
+        //        NSLog(@"方法名：%@,参数个数：%ld,编码方式：%@",[NSString stringWithUTF8String:name_s],arguments,[NSString stringWithUTF8String:encoding]);
+        [array addObject:[NSString stringWithUTF8String:name_s]];
+    }
+    free(mothList_f);
+    return array;
+}
+
+- (NSMutableArray *)ivarList:(Class)class;
+{
+    unsigned int numIvars; //成员变量个数
+    Ivar *vars = class_copyIvarList(class, &numIvars);
+    NSMutableArray *variables = [[NSMutableArray alloc] init];
+    NSString *key = nil;
+    //    NSString *type = nil;
+    for(int i = 0; i < numIvars; i++) {
+        Ivar thisIvar = vars[i];
+        key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];  //获取成员变量的名字
+        //        NSLog(@"variable name :%@", key);
+        [variables addObject:key];
+        //        type = [NSString stringWithUTF8String:ivar_getTypeEncoding(thisIvar)]; //获取成员变量的数据类型
+        //        NSLog(@"variable type :%@", type);
+    }
+    free(vars);
+    return variables;
+}
+
+- (NSMutableArray *)propertyList:(Class)class;
+{
+    u_int count;
+    objc_property_t *properties = class_copyPropertyList(class, &count);
+    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:count];
+    for (int i = 0; i < count ; i++)
+    {
+        const char* propertyName =property_getName(properties[i]);
+        [array addObject: [NSString stringWithUTF8String: propertyName]];
+    }
+    free(properties);
+    return array;
+}
+
+- (NSMutableDictionary *)getAllIvarAndVelues:(Class)class;
+{
+    NSMutableDictionary *props = [NSMutableDictionary dictionary];
+    [[self ivarList:class] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [props setObject:[self valueForKey:obj] ?: @"" forKey:obj];
+    }];
+    return props;
+}
+
+- (NSMutableDictionary *)getAllPropertiesAndVaules:(Class)class;
+{
+    NSMutableDictionary *props = [NSMutableDictionary dictionary];
+    [[self propertyList:class] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [props setObject:[self valueForKey:obj] ?: @"" forKey:obj];
+    }];
+    return props;
+}
+
+- (NSString *)getPropertyNameForValue:(id)value;
+{
+    unsigned int numIvars =0;
+    NSString *key = nil;
+    
+    //Describes the instance variables declared by a class.
+    Ivar * ivars = class_copyIvarList([self class], &numIvars);
+    
+    for(int i = 0; i < numIvars; i++) {
+        Ivar thisIvar = ivars[i];
+        
+        const char *type = ivar_getTypeEncoding(thisIvar);
+        NSString *stringType =  [NSString stringWithCString:type encoding:NSUTF8StringEncoding];
+        
+        //不是class就跳过
+        if (![stringType hasPrefix:@"@"]) {
+            continue;
+        }
+        
+        //Reads the value of an instance variable in an object. object_getIvar这个方法中，当遇到非objective-c对象时，并直接crash
+        if ((object_getIvar(self, thisIvar) == value)) {
+            // Returns the name of an instance variable.
+            key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
+            break;
+        }
+    }
+    free(ivars);
+    return key;
+}
+
+- (NSString *)Log:(BOOL)showPropertyValue;
+{
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    
+    NSMutableArray *allMembersVariabelAndProperties =  [[NSMutableArray alloc] initWithArray:[self ivarList:[self class]]];
+    [allMembersVariabelAndProperties addObjectsFromArray:[self propertyList:[self class]]];
+    
+    [allMembersVariabelAndProperties enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        Class propertyAttributeClass = [[self valueForKey:(NSString *)obj] class];
+        NSString *propertyValue = [self valueForKey:(NSString *)obj];
+        
+        [array addObject:[NSString stringWithFormat:@"属性名称:%@   对象类型:%@   指向地址:%p   %@",obj, propertyAttributeClass, propertyValue, showPropertyValue ? [NSString stringWithFormat:@"属性的值:%@",propertyValue] : EMPTY_STRING]];
+        //        根据内存地址得到其指向的对象
+        //        NSLog(@"%@",(id)memoryAddress);
+    }];
+    return [NSString stringWithFormat:@"Class Logs:\n->Next\n%@",[array componentsJoinedByString:@"\n->Next\n"]];
+}
+
+#pragma mark - RuntimePrivate
++ (NSArray *)methodsForClass:(Class)class typeFormat:(NSString *)type {
+    unsigned int outCount;
+    Method *methods = class_copyMethodList(class, &outCount);
+    NSMutableArray *result = [NSMutableArray array];
+    for (int i = 0; i < outCount; i++) {
+        NSString *methodDescription = [NSString stringWithFormat:@"%@ (%@)%@",
+                                       type,
+                                       [NSString decodeType:method_copyReturnType(methods[i])],
+                                       NSStringFromSelector(method_getName(methods[i]))];
+        
+        NSInteger args = method_getNumberOfArguments(methods[i]);
+        NSMutableArray *selParts = [[methodDescription componentsSeparatedByString:@":"] mutableCopy];
+        NSInteger offset = 2; //1-st arg is object (@), 2-nd is SEL (:)
+        
+        for (int idx = (int)offset; idx < args; idx++) {
+            NSString *returnType = [NSString decodeType:method_copyArgumentType(methods[i], idx)];
+            selParts[idx - offset] = [NSString stringWithFormat:@"%@:(%@)arg%d",
+                                      selParts[idx - offset],
+                                      returnType,
+                                      idx - 2];
+        }
+        [result addObject:[selParts componentsJoinedByString:@" "]];
+    }
+    free(methods);
+    return result.count ? [result copy] : nil;
+}
+
++ (NSArray *)formattedMethodsForProtocol:(Protocol *)proto required:(BOOL)required instance:(BOOL)instance {
+    unsigned int methodCount;
+    struct objc_method_description *methods = protocol_copyMethodDescriptionList(proto, required, instance, &methodCount);
+    NSMutableArray *methodsDescription = [NSMutableArray array];
+    for (int i = 0; i < methodCount; i++) {
+        [methodsDescription addObject:
+         [NSString stringWithFormat:@"%@ (%@)%@",
+          instance ? @"-" : @"+", @"void",
+          NSStringFromSelector(methods[i].name)]];
+    }
+    
+    free(methods);
+    return  [methodsDescription copy];
+}
+
++ (NSString *)formattedPropery:(objc_property_t)prop {
+    unsigned int attrCount;
+    objc_property_attribute_t *attrs = property_copyAttributeList(prop, &attrCount);
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+    for (int idx = 0; idx < attrCount; idx++) {
+        NSString *name = [NSString stringWithCString:attrs[idx].name encoding:NSUTF8StringEncoding];
+        NSString *value = [NSString stringWithCString:attrs[idx].value encoding:NSUTF8StringEncoding];
+        [attributes setObject:value forKey:name];
+    }
+    free(attrs);
+    NSMutableString *property = [NSMutableString stringWithFormat:@"@property "];
+    NSMutableArray *attrsArray = [NSMutableArray array];
+    
+    //https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtPropertyIntrospection.html#//apple_ref/doc/uid/TP40008048-CH101-SW5
+    [attrsArray addObject:[attributes objectForKey:@"N"] ? @"nonatomic" : @"atomic"];
+    
+    if ([attributes objectForKey:@"&"]) {
+        [attrsArray addObject:@"strong"];
+    } else if ([attributes objectForKey:@"C"]) {
+        [attrsArray addObject:@"copy"];
+    } else if ([attributes objectForKey:@"W"]) {
+        [attrsArray addObject:@"weak"];
+    } else {
+        [attrsArray addObject:@"assign"];
+    }
+    if ([attributes objectForKey:@"R"]) {[attrsArray addObject:@"readonly"];}
+    if ([attributes objectForKey:@"G"]) {
+        [attrsArray addObject:[NSString stringWithFormat:@"getter=%@", [attributes objectForKey:@"G"]]];
+    }
+    if ([attributes objectForKey:@"S"]) {
+        [attrsArray addObject:[NSString stringWithFormat:@"setter=%@", [attributes objectForKey:@"G"]]];
+    }
+    
+    [property appendFormat:@"(%@) %@ %@",
+     [attrsArray componentsJoinedByString:@", "],
+     [NSString decodeType:[[attributes objectForKey:@"T"] cStringUsingEncoding:NSUTF8StringEncoding]],
+     [NSString stringWithCString:property_getName(prop) encoding:NSUTF8StringEncoding]];
+    return [property copy];
+}
+
+@end
+
 #pragma mark - 文件管理
 @implementation NSObject (FileManager)
 + (BOOL)createDirectory:(NSString *)path;
@@ -278,20 +617,19 @@
     if(type == 0){
         return  [NSString stringWithFormat:@"%ld%ld%ld%2ld%02ld%02ld", year, month, day, hour, minute, seconds];
     }
-    if (type==1)
+    if (type == 1)
     {
         return [NSString stringWithFormat:@"%ld-%ld-%ld %02ld:%02ld:%02ld", year, month, day, hour, minute, seconds];
     }
-    if (type==2)
+    if (type == 2)
     {
         return [NSString stringWithFormat:@"%ld-%ld-%ld", year, month, day];
-        
     }
-    if (type==3)
+    if (type == 3)
     {
         return [NSString stringWithFormat:@"%ld年%ld月%ld日 %2ld时:%2ld分:%2ld秒", year, month, day, hour, minute, seconds];
     }
-    if (type==4)
+    if (type == 4)
     {
         return [NSString stringWithFormat:@"%ld年%ld月%ld日 ", year, month, day];
     }
@@ -620,122 +958,6 @@
 #pragma mark - 获取对象的信息
 @implementation NSObject (ClassInformation)
 
-- (NSArray *)instanceMethodList:(Class)class;
-{
-    unsigned int mothCout_f =0;
-    Method* mothList_f = class_copyMethodList(class,&mothCout_f);
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-    for(int i=0;i<mothCout_f;i++)
-    {
-        Method temp_f = mothList_f[i];
-        const char* name_s =sel_getName(method_getName(temp_f));
-        //        int arguments = method_getNumberOfArguments(temp_f);
-        //        const char* encoding =method_getTypeEncoding(temp_f);
-        //        NSLog(@"方法名：%@,参数个数：%ld,编码方式：%@",[NSString stringWithUTF8String:name_s],arguments,[NSString stringWithUTF8String:encoding]);
-        [array addObject:[NSString stringWithUTF8String:name_s]];
-    }
-    free(mothList_f);
-    return array;
-}
 
-- (NSMutableArray *)ivarList:(Class)class;
-{
-    unsigned int numIvars; //成员变量个数
-    Ivar *vars = class_copyIvarList(class, &numIvars);
-    NSMutableArray *variables = [[NSMutableArray alloc] init];
-    NSString *key = nil;
-    //    NSString *type = nil;
-    for(int i = 0; i < numIvars; i++) {
-        Ivar thisIvar = vars[i];
-        key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];  //获取成员变量的名字
-        //        NSLog(@"variable name :%@", key);
-        [variables addObject:key];
-        //        type = [NSString stringWithUTF8String:ivar_getTypeEncoding(thisIvar)]; //获取成员变量的数据类型
-        //        NSLog(@"variable type :%@", type);
-    }
-    free(vars);
-    return variables;
-}
-
-- (NSMutableArray *)propertyList:(Class)class;
-{
-    u_int count;
-    objc_property_t *properties = class_copyPropertyList(class, &count);
-    NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:count];
-    for (int i = 0; i < count ; i++)
-    {
-        const char* propertyName =property_getName(properties[i]);
-        [array addObject: [NSString stringWithUTF8String: propertyName]];
-    }
-    free(properties);
-    return array;
-}
-
-- (NSMutableDictionary *)getAllIvarAndVelues:(Class)class;
-{
-    NSMutableDictionary *props = [NSMutableDictionary dictionary];
-    [[self ivarList:class] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [props setObject:[self valueForKey:obj] ?: @"" forKey:obj];
-    }];
-    return props;
-}
-
-- (NSMutableDictionary *)getAllPropertiesAndVaules:(Class)class;
-{
-    NSMutableDictionary *props = [NSMutableDictionary dictionary];
-    [[self propertyList:class] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [props setObject:[self valueForKey:obj] ?: @"" forKey:obj];
-    }];
-    return props;
-}
-
-- (NSString *)getPropertyNameForValue:(id)value;
-{
-    unsigned int numIvars =0;
-    NSString *key=nil;
-
-    //Describes the instance variables declared by a class.
-    Ivar * ivars = class_copyIvarList([self class], &numIvars);
-
-    for(int i = 0; i < numIvars; i++) {
-        Ivar thisIvar = ivars[i];
-
-        const char *type = ivar_getTypeEncoding(thisIvar);
-        NSString *stringType =  [NSString stringWithCString:type encoding:NSUTF8StringEncoding];
-
-        //不是class就跳过
-        if (![stringType hasPrefix:@"@"]) {
-            continue;
-        }
-
-        //Reads the value of an instance variable in an object. object_getIvar这个方法中，当遇到非objective-c对象时，并直接crash
-        if ((object_getIvar(self, thisIvar) == value)) {
-            // Returns the name of an instance variable.
-            key = [NSString stringWithUTF8String:ivar_getName(thisIvar)];
-            break;
-        }
-    }
-    free(ivars);
-    return key;
-}
-
-- (NSString *)Log:(BOOL)showPropertyValue;
-{
-    NSMutableArray *array = [[NSMutableArray alloc] init];
-
-    NSMutableArray *allMembersVariabelAndProperties =  [[NSMutableArray alloc] initWithArray:[self ivarList:[self class]]];
-    [allMembersVariabelAndProperties addObjectsFromArray:[self propertyList:[self class]]];
-
-    [allMembersVariabelAndProperties enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-
-        Class propertyAttributeClass = [[self valueForKey:(NSString *)obj] class];
-        NSString *propertyValue = [self valueForKey:(NSString *)obj];
-
-        [array addObject:[NSString stringWithFormat:@"属性名称:%@   对象类型:%@   指向地址:%p   %@",obj, propertyAttributeClass, propertyValue, showPropertyValue ? [NSString stringWithFormat:@"属性的值:%@",propertyValue] : EMPTY_STRING]];
-//        根据内存地址得到其指向的对象
-//        NSLog(@"%@",(id)memoryAddress);
-    }];
-   return [NSString stringWithFormat:@"Class Logs:\n->Next\n%@",[array componentsJoinedByString:@"\n->Next\n"]];
-}
 
 @end
