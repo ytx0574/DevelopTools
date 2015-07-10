@@ -28,6 +28,12 @@
 		2C145A031B4B969500C81E2C /* UITextField+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1459E91B4B969500C81E2C /* UITextField+Tools.m */; };
 		2C145A041B4B969500C81E2C /* UIView+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1459EB1B4B969500C81E2C /* UIView+Tools.m */; };
 		2C145A051B4B969500C81E2C /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1459F01B4B969500C81E2C /* PlaceholderTextView.m */; };
+		2C83859F1B4F9FB200D0E3FE /* JUIButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8385941B4F9FB200D0E3FE /* JUIButton.m */; };
+		2C8385A01B4F9FB200D0E3FE /* JUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8385961B4F9FB200D0E3FE /* JUILabel.m */; };
+		2C8385A11B4F9FB200D0E3FE /* JUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8385981B4F9FB200D0E3FE /* JUIView.m */; };
+		2C8385A21B4F9FB200D0E3FE /* UIButton+MBIBnspectable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C83859A1B4F9FB200D0E3FE /* UIButton+MBIBnspectable.m */; };
+		2C8385A31B4F9FB200D0E3FE /* UILabel+MBIBnsepectable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C83859C1B4F9FB200D0E3FE /* UILabel+MBIBnsepectable.m */; };
+		2C8385A41B4F9FB200D0E3FE /* UIView+MBIBnspectable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C83859E1B4F9FB200D0E3FE /* UIView+MBIBnspectable.m */; };
 		2CFD50C01B317F4F00232BAD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFD50BF1B317F4F00232BAD /* main.m */; };
 		2CFD50C31B317F4F00232BAD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFD50C21B317F4F00232BAD /* AppDelegate.m */; };
 		2CFD50C61B317F4F00232BAD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFD50C51B317F4F00232BAD /* ViewController.m */; };
@@ -93,6 +99,18 @@
 		2C1459ED1B4B969500C81E2C /* ToolsHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolsHeader.h; sourceTree = "<group>"; };
 		2C1459EF1B4B969500C81E2C /* PlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderTextView.h; sourceTree = "<group>"; };
 		2C1459F01B4B969500C81E2C /* PlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceholderTextView.m; sourceTree = "<group>"; };
+		2C8385931B4F9FB200D0E3FE /* JUIButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JUIButton.h; sourceTree = "<group>"; };
+		2C8385941B4F9FB200D0E3FE /* JUIButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JUIButton.m; sourceTree = "<group>"; };
+		2C8385951B4F9FB200D0E3FE /* JUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JUILabel.h; sourceTree = "<group>"; };
+		2C8385961B4F9FB200D0E3FE /* JUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JUILabel.m; sourceTree = "<group>"; };
+		2C8385971B4F9FB200D0E3FE /* JUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JUIView.h; sourceTree = "<group>"; };
+		2C8385981B4F9FB200D0E3FE /* JUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JUIView.m; sourceTree = "<group>"; };
+		2C8385991B4F9FB200D0E3FE /* UIButton+MBIBnspectable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+MBIBnspectable.h"; sourceTree = "<group>"; };
+		2C83859A1B4F9FB200D0E3FE /* UIButton+MBIBnspectable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+MBIBnspectable.m"; sourceTree = "<group>"; };
+		2C83859B1B4F9FB200D0E3FE /* UILabel+MBIBnsepectable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+MBIBnsepectable.h"; sourceTree = "<group>"; };
+		2C83859C1B4F9FB200D0E3FE /* UILabel+MBIBnsepectable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+MBIBnsepectable.m"; sourceTree = "<group>"; };
+		2C83859D1B4F9FB200D0E3FE /* UIView+MBIBnspectable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MBIBnspectable.h"; sourceTree = "<group>"; };
+		2C83859E1B4F9FB200D0E3FE /* UIView+MBIBnspectable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MBIBnspectable.m"; sourceTree = "<group>"; };
 		2CFD50BA1B317F4F00232BAD /* DevelopTools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DevelopTools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CFD50BE1B317F4F00232BAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CFD50BF1B317F4F00232BAD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -132,6 +150,7 @@
 			children = (
 				2C1459ED1B4B969500C81E2C /* ToolsHeader.h */,
 				2C1459EC1B4B969500C81E2C /* GlobalMacro.h */,
+				2C8385921B4F9FB200D0E3FE /* MBIBnspectable */,
 				2C1459C01B4B969500C81E2C /* BaseClasses */,
 				2C1459C71B4B969500C81E2C /* CalendarUtil */,
 				2C1459CF1B4B969500C81E2C /* Category */,
@@ -209,6 +228,25 @@
 				2C1459F01B4B969500C81E2C /* PlaceholderTextView.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		2C8385921B4F9FB200D0E3FE /* MBIBnspectable */ = {
+			isa = PBXGroup;
+			children = (
+				2C8385931B4F9FB200D0E3FE /* JUIButton.h */,
+				2C8385941B4F9FB200D0E3FE /* JUIButton.m */,
+				2C8385951B4F9FB200D0E3FE /* JUILabel.h */,
+				2C8385961B4F9FB200D0E3FE /* JUILabel.m */,
+				2C8385971B4F9FB200D0E3FE /* JUIView.h */,
+				2C8385981B4F9FB200D0E3FE /* JUIView.m */,
+				2C8385991B4F9FB200D0E3FE /* UIButton+MBIBnspectable.h */,
+				2C83859A1B4F9FB200D0E3FE /* UIButton+MBIBnspectable.m */,
+				2C83859B1B4F9FB200D0E3FE /* UILabel+MBIBnsepectable.h */,
+				2C83859C1B4F9FB200D0E3FE /* UILabel+MBIBnsepectable.m */,
+				2C83859D1B4F9FB200D0E3FE /* UIView+MBIBnspectable.h */,
+				2C83859E1B4F9FB200D0E3FE /* UIView+MBIBnspectable.m */,
+			);
+			path = MBIBnspectable;
 			sourceTree = "<group>";
 		};
 		2CFD50B11B317F4F00232BAD = {
@@ -377,9 +415,11 @@
 				2C1459FB1B4B969500C81E2C /* UIActionSheet+Tools.m in Sources */,
 				2C145A041B4B969500C81E2C /* UIView+Tools.m in Sources */,
 				2C1459FE1B4B969500C81E2C /* UIColor+Tools.m in Sources */,
+				2C8385A31B4F9FB200D0E3FE /* UILabel+MBIBnsepectable.m in Sources */,
 				2C1459FC1B4B969500C81E2C /* UIAlertView+Tools.m in Sources */,
 				2C1459F11B4B969500C81E2C /* BaseCell.m in Sources */,
 				2CFD50C61B317F4F00232BAD /* ViewController.m in Sources */,
+				2C8385A21B4F9FB200D0E3FE /* UIButton+MBIBnspectable.m in Sources */,
 				2C145A011B4B969500C81E2C /* UINavigationController+Tools.m in Sources */,
 				2C1459F51B4B969500C81E2C /* ITTDay.m in Sources */,
 				2C1459F81B4B969500C81E2C /* NSObject+Tools.m in Sources */,
@@ -392,10 +432,14 @@
 				2C145A021B4B969500C81E2C /* UIResponder+Tools.m in Sources */,
 				2C145A001B4B969500C81E2C /* UILabel+Tools.m in Sources */,
 				2C1459FF1B4B969500C81E2C /* UIImage+Tools.m in Sources */,
+				2C8385A11B4F9FB200D0E3FE /* JUIView.m in Sources */,
+				2C8385A41B4F9FB200D0E3FE /* UIView+MBIBnspectable.m in Sources */,
 				2C1459F31B4B969500C81E2C /* BaseVC.m in Sources */,
 				2CFD50C01B317F4F00232BAD /* main.m in Sources */,
 				2C1459F21B4B969500C81E2C /* BaseNVC.m in Sources */,
+				2C83859F1B4F9FB200D0E3FE /* JUIButton.m in Sources */,
 				2C1459FA1B4B969500C81E2C /* NSTimer+Tools.m in Sources */,
+				2C8385A01B4F9FB200D0E3FE /* JUILabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
