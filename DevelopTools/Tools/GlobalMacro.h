@@ -203,10 +203,3 @@ static NSString *idIdentifier =              @"-Johnson-Identifier-";
 #define CONVERT_RESPONSE_KEYS                @{[NSString stringWithFormat:@"\"%@\"",@"id"]: [NSString stringWithFormat:@"\"%@\"",idIdentifier]}
 /**获取唯一单条数据的唯一标识时,本地跟服务器不同的字段  默认需要转换的keys 详情见:NSObject+AccessibilityTools-> convertUnique:keys:*/
 #define CONVERT_UNIQUE_KEYS                  @{@"id": idIdentifier}
-
-/**根控制器对象*/
-#define ROOTVIEWCONTROLLER                           ((CTTabBarViewController *)APPDELEGATE_INSTANCE.window.rootViewController)
-/**根导航栏*/
-#define ROOTNAVIGATIONCONROLLER                      ((UINavigationController *)((CTTabBarViewController *)APPDELEGATE_INSTANCE.window.rootViewController).selectedViewController)
-/**当前vc*/
-#define CURRENTVIEWCONTROLLER                        ((CTViewController *)ROOTNAVIGATIONCONROLLER.viewControllers.lastObject)

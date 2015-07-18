@@ -119,6 +119,7 @@
 		2C8386B71B4FA59400D0E3FE /* IQToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8386A81B4FA59400D0E3FE /* IQToolbar.m */; };
 		2C8386B81B4FA59400D0E3FE /* IQUIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8386AA1B4FA59400D0E3FE /* IQUIView+IQKeyboardToolbar.m */; };
 		2C8386B91B4FA59400D0E3FE /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2C8386AD1B4FA59400D0E3FE /* IQKeyboardManager.bundle */; };
+		2C9BCD3D1B561848009EDA33 /* LunarCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9BCD3C1B561848009EDA33 /* LunarCalendar.m */; };
 		2CFD50C01B317F4F00232BAD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFD50BF1B317F4F00232BAD /* main.m */; };
 		2CFD50C31B317F4F00232BAD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFD50C21B317F4F00232BAD /* AppDelegate.m */; };
 		2CFD50C61B317F4F00232BAD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFD50C51B317F4F00232BAD /* ViewController.m */; };
@@ -370,6 +371,8 @@
 		2C8386AA1B4FA59400D0E3FE /* IQUIView+IQKeyboardToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIView+IQKeyboardToolbar.m"; sourceTree = "<group>"; };
 		2C8386AB1B4FA59400D0E3FE /* KeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardManager.h; sourceTree = "<group>"; };
 		2C8386AD1B4FA59400D0E3FE /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
+		2C9BCD3B1B561848009EDA33 /* LunarCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LunarCalendar.h; sourceTree = "<group>"; };
+		2C9BCD3C1B561848009EDA33 /* LunarCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LunarCalendar.m; sourceTree = "<group>"; };
 		2CFD50BA1B317F4F00232BAD /* DevelopTools.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DevelopTools.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CFD50BE1B317F4F00232BAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CFD50BF1B317F4F00232BAD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -434,6 +437,8 @@
 		2C1459C71B4B969500C81E2C /* CalendarUtil */ = {
 			isa = PBXGroup;
 			children = (
+				2C9BCD3B1B561848009EDA33 /* LunarCalendar.h */,
+				2C9BCD3C1B561848009EDA33 /* LunarCalendar.m */,
 				2C1459C81B4B969500C81E2C /* ITTDateUtil.h */,
 				2C1459C91B4B969500C81E2C /* ITTDateUtil.m */,
 				2C1459CA1B4B969500C81E2C /* ITTDay.h */,
@@ -1037,6 +1042,7 @@
 				2C8386401B4FA24400D0E3FE /* FLEXToolbarItem.m in Sources */,
 				2C8386521B4FA24400D0E3FE /* FLEXViewControllerExplorerViewController.m in Sources */,
 				2C8386321B4FA24400D0E3FE /* FLEXArgumentInputStructView.m in Sources */,
+				2C9BCD3D1B561848009EDA33 /* LunarCalendar.m in Sources */,
 				2C8386B11B4FA59400D0E3FE /* IQKeyboardManager.m in Sources */,
 				2C1459F41B4B969500C81E2C /* ITTDateUtil.m in Sources */,
 				2C145A031B4B969500C81E2C /* UITextField+Tools.m in Sources */,

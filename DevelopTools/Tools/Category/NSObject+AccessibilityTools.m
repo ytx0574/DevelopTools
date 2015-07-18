@@ -11,6 +11,40 @@
 
 @implementation NSObject (AccessibilityTools)
 
+- (UIViewController *)rootViewController
+{
+    return [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+}
+
+- (UIViewController *)currentViewController
+{
+    if ([self.rootViewController isKindOfClass:[UINavigationController class]]) {
+        return CONVERTION_TYPE(UINavigationController, self.rootViewController).viewControllers.lastObject;
+    }else if ([self.rootViewController isKindOfClass:[UITabBarController class]]){
+        UIViewController *controller = CONVERTION_TYPE(UITabBarController, self.rootViewController).selectedViewController;
+        if ([controller isKindOfClass:[UINavigationController class]]) {
+            return CONVERTION_TYPE(UINavigationController, controller).viewControllers.lastObject;
+        }
+        return controller;
+    }
+    return self.rootViewController;
+}
+
+- (UIViewController *)navigationViewController
+{
+    if ([self.rootViewController isKindOfClass:[UINavigationController class]]) {
+        return self.rootViewController;
+    }else if ([self.rootViewController isKindOfClass:[UITabBarController class]]){
+        UIViewController *controller = CONVERTION_TYPE(UITabBarController, self.rootViewController).selectedViewController;
+        if ([controller isKindOfClass:[UINavigationController class]]) {
+            return controller;
+        }
+        return nil;
+    }
+    return nil;
+}
+
+#pragma mark - Http
 - (NSDictionary *)customParameter:(NSDictionary *)parameter
 {
     return parameter;
