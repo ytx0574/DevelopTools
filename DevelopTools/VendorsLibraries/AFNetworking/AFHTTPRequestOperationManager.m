@@ -112,7 +112,7 @@
 
         return nil;
     }
-
+    [[self class] httpRequestLog:request parameters:parameters];
     return [self HTTPRequestOperationWithRequest:request success:success failure:failure];
 }
 

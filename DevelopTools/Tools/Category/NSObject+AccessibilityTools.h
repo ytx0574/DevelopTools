@@ -20,4 +20,8 @@
 
 - (AFHTTPRequestOperation *)postForInterfaceName:(NSString *)interfaceName Parameter:(NSDictionary *)parameter success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
++ (void)httpRequestLog:(NSURLRequest *)request  parameters:(NSDictionary *)parameters;
+
++ (void)httpResponseLog:(NSURLRequest *)request  responseObject:(id)responseObject;
+
 @end

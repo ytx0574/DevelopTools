@@ -67,11 +67,22 @@
 - (AFHTTPRequestOperation *)postForInterfaceName:(NSString *)interfaceName Parameter:(NSDictionary *)parameter success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 {
     return [[AFHTTPRequestOperationManager manager] POST:[self customInterface:interfaceName] parameters:[self customParameter:parameter] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        JUDGE_IF(NSOBJECT_TOOLS_DEBUG, NSLog(@"%@",responseObject));
         success ? success(operation, responseObject) : nil;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure ? failure(operation, error) : nil;
     }];
+}
+
++ (void)httpRequestLog:(NSURLRequest *)request  parameters:(NSDictionary *)parameters;
+{
+    NSString *httpBodyString = [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding];
+    NSString *linkString = [request.HTTPMethod isEqualToString:@"POST"] ? [NSString stringWithFormat:@"%@?%@", request.URL, httpBodyString] : request.URL.absoluteString;
+    NSLog(@"HTTP-Method-> %@, HTTP-URL-> %@, HTTP-Body-> %@\nLink-> %@", request.HTTPMethod, request.URL, httpBodyString, linkString);
+}
+
++ (void)httpResponseLog:(NSURLRequest *)request  responseObject:(id)responseObject;
+{
+    NSLog(@"Link-> %@\nHTTP-ResponseObject:%@", [request.HTTPMethod isEqualToString:@"POST"] ? [NSString stringWithFormat:@"%@?%@", request.URL, [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]] : request.URL, [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:NULL]);
 }
 
 @end

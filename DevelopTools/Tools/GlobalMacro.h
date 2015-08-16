@@ -9,16 +9,12 @@
 #pragma mark - DEBUG
 #ifdef  DEBUG
 
-#define NSOBJECT_TOOLS_DEBUG YES
-#define PRINT_JOSN_STRING NO
 #define NSLog(FORMAT, ...) fprintf(stderr,"\nfunction:%s line:%d content:\n%s\n", __FUNCTION__, __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
 #define ALERT_LOG(msg)                                   [[[UIAlertView alloc]initWithTitle:@"提示" message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil] show]
 #define DEALLOC_LOG  - (void)dealloc{    NSLog(@"◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊ dealloc Class:%@\n %@",self, NO ?  [NSString stringWithFormat:@"Class_Information:%@", [self Log:NO]] : EMPTY_STRING);}
 
 #else
 
-#define NSOBJECT_TOOLS_DEBUG NO
-#define PRINT_JOSN_STRING NO
 #define NSLog(FORMAT, ...) nil;
 #define ALERT_LOG(msg)
 #define DEALLOC_LOG
