@@ -120,6 +120,36 @@ static char BottomLineKey;
 }
 
 
+- (BOOL)showTopLine
+{
+    return ![self topLineView].hidden;
+}
+
+- (void)setShowTopLine:(BOOL)showTopLine
+{
+    if (![self topLineView]) {
+        [self setTopLineView:[[UIView alloc] init]];
+        [self addSubview:[self topLineView]];
+    }
+    
+    [[self topLineView] setHidden:!showTopLine];
+}
+
+- (BOOL)showBottomLine
+{
+    return ![self bottomLineView].hidden;
+}
+
+- (void)setShowBottomLine:(BOOL)showBottomLine
+{
+    if (![self bottomLineView]) {
+        [self setBottomLineView:[[UIView alloc] init]];
+        [self addSubview:[self bottomLineView]];
+    }
+    
+    [[self bottomLineView] setHidden:!showBottomLine];
+}
+
 - (CGFloat)lineHeight
 {
     return SIZE_H([self topLineView]) != 0 ? SIZE_H([self topLineView]) : SIZE_H([self bottomLineView]);
@@ -127,8 +157,13 @@ static char BottomLineKey;
 
 - (void)setLineHeight:(CGFloat)lineHeight
 {
-    [self topLineView].frame = RECT_ORIGIN(CGPointZero, SIZE_W(self), lineHeight);
-    [self bottomLineView].frame = RECT_SIZE(0, SIZE_H(self) - lineHeight, SIZE([self topLineView]));
+    @weakify(self)
+    [RACObserve(self, frame) subscribeNext:^(id x) {
+        @strongify(self);
+    
+        [self topLineView].frame = RECT_ORIGIN(CGPointZero, SIZE_W(self), lineHeight);
+        [self bottomLineView].frame = RECT([self BL_Edge_Left], SIZE_H(self) - lineHeight, SIZE_W(self) - [self BL_Edge_Left], lineHeight);
+    }];
 }
 
 - (UIColor *)lineColor
@@ -143,34 +178,18 @@ static char BottomLineKey;
 }
 
 
-- (void)setShowTopLine:(BOOL)showTopLine
+- (CGFloat)BL_Edge_Left
 {
-    if (![self topLineView]) {
-        [self setTopLineView:[[UIView alloc] init]];
-        [self addSubview:[self topLineView]];
-    }
+    return [self bottomLineView].frame.origin.x;
+}
+
+- (void)setBL_Edge_Left:(CGFloat)BL_Edge_Left
+{
+    @weakify(self)
+    [RACObserve(self, frame) subscribeNext:^(id x) {
+        @strongify(self);
         
-    [[self topLineView] setHidden:!showTopLine];
+        [self bottomLineView].frame = RECT(BL_Edge_Left, SIZE_H(self) - [self lineHeight], SIZE_W(self), SIZE_W(self) - BL_Edge_Left);
+    }];
 }
-
-- (BOOL)showTopLine
-{
-    return ![self topLineView].hidden;
-}
-
-- (void)setShowBottomLine:(BOOL)showBottomLine
-{
-    if (![self bottomLineView]) {
-        [self setBottomLineView:[[UIView alloc] init]];
-        [self addSubview:[self bottomLineView]];
-    }
-    
-    [[self bottomLineView] setHidden:!showBottomLine];
-}
-
-- (BOOL)showBottomLine
-{
-    return ![self bottomLineView].hidden;
-}
-
 @end

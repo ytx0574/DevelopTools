@@ -12,11 +12,3 @@
 //// set text hex color
 //@property (assign,nonatomic) IBInspectable NSString *titleHexColor;
 //@end
-
-
-//#import <UIKit/UIKit.h>
-///**已经禁用 IB_DESIGNABLE, xib报错, 太尼玛坑了*/
-//@interface UIButton (MBIBnspectable)
-//// set text hex color
-//@property (assign,nonatomic) NSString *titleHexColor;
-//@end

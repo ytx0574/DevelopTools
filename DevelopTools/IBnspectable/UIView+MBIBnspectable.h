@@ -31,22 +31,8 @@ IB_DESIGNABLE
 @property (nonatomic, assign) IBInspectable CGFloat lineHeight;
 @property (nonatomic, assign) IBInspectable UIColor *lineColor;
 
+
+/**bottomLine Edge Left*/
+@property (nonatomic, assign) IBInspectable CGFloat BL_Edge_Left;
+
 @end
-
-
-//#import <UIKit/UIKit.h>
-///**已经禁用 IB_DESIGNABLE, xib报错, 太尼玛坑了*/
-//@interface UIView (MBIBnspectable)
-//
-//@property (assign,nonatomic) NSInteger cornerRadius;
-//@property (assign,nonatomic) NSInteger borderWidth;
-//@property (assign,nonatomic) BOOL      masksToBounds;
-//// set border hex color
-//@property (strong,nonatomic) NSString  *borderHexRgb;
-//@property (strong,nonatomic) UIColor   *borderColor;
-//// set background hex color
-//@property (assign,nonatomic) NSString  *hexRgbColor;
-//@property (assign,nonatomic) BOOL      onePx;
-//
-//@end
-

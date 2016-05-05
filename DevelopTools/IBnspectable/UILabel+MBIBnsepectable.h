@@ -14,11 +14,3 @@
 //// set text hex color
 //@property (assign,nonatomic) IBInspectable NSString *textHexColor;
 //@end
-
-
-//#import <UIKit/UIKit.h>
-///**已经禁用 IB_DESIGNABLE, xib报错, 太尼玛坑了*/
-//@interface UILabel (MBIBnsepectable)
-//// set text hex color
-//@property (assign,nonatomic) NSString *textHexColor;
-//@end
