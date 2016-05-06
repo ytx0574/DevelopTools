@@ -27,29 +27,16 @@
 #import <CommonCrypto/CommonDigest.h>
 #import <CommonCrypto/CommonCryptor.h>
 
+#import "GTMBase64.h"
+#import <Security/Security.h>
+#import <CommonCrypto/CommonDigest.h>
+#import <CommonCrypto/CommonCrypto.h>
+
+
 @implementation NSString (Tools)
 
-//资源文件读取
-+ (UIImage *)readBundleImageNamed:(NSString *)name
-{
-    NSBundle * libBundle = MYBUNDLE ;
-    if ( libBundle && name ){
-        NSString * s=[[libBundle resourcePath ] stringByAppendingPathComponent : name];
-        
-        if ( [[[UIDevice currentDevice] systemVersion] intValue] >= 4 || [[UIScreen mainScreen] scale] == 2.0 ) {
-            
-            return  [UIImage imageWithCGImage:[[UIImage  imageWithContentsOfFile:s] CGImage]
-                                        scale:2.0 orientation:UIImageOrientationUp];
-        }
-        return [UIImage imageWithContentsOfFile:s];
-    }
-    
-    return nil;
-    
-}
-
 //MD5 加密
-+(NSString*)md5Str:(NSString*)str
++ (NSString *)md5Str:(NSString*)str
 {
     NSString *md5str;
     const char *cStr = [str UTF8String];
@@ -320,7 +307,7 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 /*
  将16进制数据转化成NSData 数组
  */
-+(NSData*)parseHexToByteArray:(NSString*) hexString
++(NSData *)parseHexToByteArray:(NSString*) hexString
 {
     int j=0;
     Byte bytes[hexString.length];
@@ -355,6 +342,75 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
     return newData;
 }
 
++ (NSString *)triple3DES:(NSString *)plainText desKey:(NSString *)desKey encryptOrDecrypt:(CCOperation)encryptOrDecrypt
+{
+    
+    const void *vplainText;
+    size_t plainTextBufferSize;
+    
+    if (encryptOrDecrypt == kCCDecrypt)//解密
+    {
+        NSData *EncryptData = [GTMBase64 decodeData:[plainText dataUsingEncoding:NSUTF8StringEncoding]];
+        plainTextBufferSize = [EncryptData length];
+        vplainText = [EncryptData bytes];
+    }
+    else //加密
+    {
+        NSData* data = [plainText dataUsingEncoding:NSUTF8StringEncoding];
+        plainTextBufferSize = [data length];
+        vplainText = (const void *)[data bytes];
+    }
+    
+    CCCryptorStatus ccStatus;
+    uint8_t *bufferPtr = NULL;
+    size_t bufferPtrSize = 0;
+    size_t movedBytes = 0;
+    
+    bufferPtrSize = (plainTextBufferSize + kCCBlockSize3DES) & ~(kCCBlockSize3DES - 1);
+    bufferPtr = malloc( bufferPtrSize * sizeof(uint8_t));
+    memset((void *)bufferPtr, 0x0, bufferPtrSize);
+    // memset((void *) iv, 0x0, (size_t) sizeof(iv));
+    
+    const void *vkey = (const void *)[desKey UTF8String];
+    // NSString *initVec = @"init Vec";
+    //const void *vinitVec = (const void *) [initVec UTF8String];
+    //  Byte iv[] = {0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF};
+    ccStatus = CCCrypt(encryptOrDecrypt,
+                       kCCAlgorithm3DES,
+                       kCCOptionPKCS7Padding | kCCOptionECBMode,
+                       vkey,
+                       kCCKeySize3DES,
+                       nil,
+                       vplainText,
+                       plainTextBufferSize,
+                       (void *)bufferPtr,
+                       bufferPtrSize,
+                       &movedBytes);
+    //if (ccStatus == kCCSuccess) NSLog(@"SUCCESS");
+    /*else if (ccStatus == kCC ParamError) return @"PARAM ERROR";
+     else if (ccStatus == kCCBufferTooSmall) return @"BUFFER TOO SMALL";
+     else if (ccStatus == kCCMemoryFailure) return @"MEMORY FAILURE";
+     else if (ccStatus == kCCAlignmentError) return @"ALIGNMENT";
+     else if (ccStatus == kCCDecodeError) return @"DECODE ERROR";
+     else if (ccStatus == kCCUnimplemented) return @"UNIMPLEMENTED"; */
+    
+    NSString *result;
+    
+    if (encryptOrDecrypt == kCCDecrypt)
+    {
+        result = [[NSString alloc] initWithData:[NSData dataWithBytes:(const void *)bufferPtr
+                                                               length:(NSUInteger)movedBytes]
+                                       encoding:NSUTF8StringEncoding];
+    }
+    else
+    {
+        NSData *myData = [NSData dataWithBytes:(const void *)bufferPtr length:(NSUInteger)movedBytes];
+        result = [GTMBase64 stringByEncodingData:myData];
+    }
+    
+    return result;
+}
+
 + (NSString *)replaceEmptyOrNull:(NSString *)checkString
 {
     if (!checkString || [checkString isEqualToString:@""]||[checkString isEqualToString:@"null"]) {
@@ -363,7 +419,7 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
     return checkString;
 }
 
-- (NSString *) md5
+- (NSString *)md5
 {
     const char *cStr = [self UTF8String];
     unsigned char result[32];
@@ -376,7 +432,8 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 			result[12], result[13], result[14], result[15]
 			];      
 }
-- (NSString*)sha
+
+- (NSString *)sha
 {
     const char *cstr = [self cStringUsingEncoding:NSUTF8StringEncoding];
     NSData *data = [NSData dataWithBytes:cstr length:self.length];
@@ -433,69 +490,12 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
     return (!decodedString) ? @"" : [decodedString stringByReplacingOccurrencesOfString:@"+" withString:@" "];
 }
 
-+ (NSString *)replaceUnicode:(NSString *)unicodeStr {
-    
-    NSString *tempStr1 = [unicodeStr stringByReplacingOccurrencesOfString:@"\\u"withString:@"\\U"];
-    
-    NSString *tempStr2 = [tempStr1 stringByReplacingOccurrencesOfString:@"\""withString:@"\\\""];
-    
-    NSString *tempStr3 = [[@"\""stringByAppendingString:tempStr2]stringByAppendingString:@"\""];
-    
-    NSData *tempData = [tempStr3 dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSString* returnStr = nil;
-    if (iOS_SYSTEM_LATER(8)) {
-        returnStr = [NSPropertyListSerialization propertyListWithData:tempData options:NSPropertyListImmutable format:nil error:NULL];
-    }else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored"-Wdeprecated-declarations"
-        returnStr = [NSPropertyListSerialization propertyListFromData:tempData mutabilityOption:NSPropertyListImmutable format:nil errorDescription:NULL];
-#pragma clang diagnostic pop
-        
-    }
-    
-    return [returnStr stringByReplacingOccurrencesOfString:@"\\r\\n"withString:@"\n"];
-}
-
-+ (NSString *)filterEmoji:(NSString *)string
-{
-    __block NSString *stringTemp = [NSString stringWithString:string];
-    [stringTemp enumerateSubstringsInRange:NSMakeRange(0, [string length])
-                               options:NSStringEnumerationByComposedCharacterSequences
-                            usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
-                                const unichar hs = [substring characterAtIndex:0];
-                                if (0xd800 <= hs && hs <= 0xdbff) {
-                                    if (substring.length > 1) {
-                                        const unichar ls = [substring characterAtIndex:1];
-                                        const int uc = ((hs - 0xd800) * 0x400) + (ls - 0xdc00) + 0x10000;
-                                        if (0x1d000 <= uc && uc <= 0x1f77f) {
-                                            stringTemp = [stringTemp stringByReplacingOccurrencesOfString:substring withString:EMPTY_STRING];
-                                        }
-                                    }
-                                } else if (substring.length > 1) {
-                                    const unichar ls = [substring characterAtIndex:1];
-                                    if (ls == 0x20e3) {
-                                        stringTemp = [stringTemp stringByReplacingOccurrencesOfString:substring withString:EMPTY_STRING];
-                                    }
-                                } else {
-                                    if (0x2100 <= hs && hs <= 0x27ff) {
-                                        stringTemp = [stringTemp stringByReplacingOccurrencesOfString:substring withString:EMPTY_STRING];
-                                    } else if (0x2B05 <= hs && hs <= 0x2b07) {
-                                        stringTemp = [stringTemp stringByReplacingOccurrencesOfString:substring withString:EMPTY_STRING];
-                                    } else if (0x2934 <= hs && hs <= 0x2935) {
-                                        stringTemp = [stringTemp stringByReplacingOccurrencesOfString:substring withString:EMPTY_STRING];
-                                    } else if (0x3297 <= hs && hs <= 0x3299) {
-                                        stringTemp = [stringTemp stringByReplacingOccurrencesOfString:substring withString:EMPTY_STRING];
-                                    } else if (hs == 0xa9 || hs == 0xae || hs == 0x303d || hs == 0x3030 || hs == 0x2b55 || hs == 0x2b1c || hs == 0x2b1b || hs == 0x2b50) {
-                                        stringTemp = [stringTemp stringByReplacingOccurrencesOfString:substring withString:EMPTY_STRING];
-                                    }
-                                }
-                            }];
-
-    return stringTemp;
-}
+@end
 
 
+
+
+@implementation NSString (validate)
 
 + (BOOL)validateName:(NSString *)candidate;
 {
@@ -631,29 +631,8 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 
 @end
 
-@implementation NSString (Operation)
-+ (NSString *)encryptPhoneNumber:(NSString *)phoneNumber
-{
-    if (![NSString validateTel:phoneNumber]) {
-        return nil;
-    }
-    return [phoneNumber stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"XXXX"];
-}
 
-+ (NSString *)encryptPhoneNumber:(NSString *)phoneNumber string:(NSString *)string;
-{
-    if (![NSString validateTel:phoneNumber]) {
-        return nil;
-    }
-    return [phoneNumber stringByReplacingCharactersInRange:NSMakeRange(3, string.length) withString:string];
-}
 
-+ (NSString *)convertDate:(NSDate *)date;
-{
-    NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:date];
-    return [NSString stringWithFormat:@"%.f小时前", interval / 3600];
-}
-@end
 
 @implementation NSString (Runtime)
 
@@ -679,4 +658,94 @@ static const char encodingTable[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
     return result;
 }
 
+@end
+
+
+
+@implementation NSString (Operation)
+
++ (NSString *)replaceUnicode:(NSString *)unicodeStr
+{
+    
+    NSString *tempStr1 = [unicodeStr stringByReplacingOccurrencesOfString:@"\\u"withString:@"\\U"];
+    
+    NSString *tempStr2 = [tempStr1 stringByReplacingOccurrencesOfString:@"\""withString:@"\\\""];
+    
+    NSString *tempStr3 = [[@"\""stringByAppendingString:tempStr2]stringByAppendingString:@"\""];
+    
+    NSData *tempData = [tempStr3 dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSString* returnStr = nil;
+    if (iOS_SYSTEM_LATER(8)) {
+        returnStr = [NSPropertyListSerialization propertyListWithData:tempData options:NSPropertyListImmutable format:nil error:NULL];
+    }else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored"-Wdeprecated-declarations"
+        returnStr = [NSPropertyListSerialization propertyListFromData:tempData mutabilityOption:NSPropertyListImmutable format:nil errorDescription:NULL];
+#pragma clang diagnostic pop
+        
+    }
+    
+    return [returnStr stringByReplacingOccurrencesOfString:@"\\r\\n"withString:@"\n"];
+}
+
++ (NSString *)filterEmoji:(NSString *)string
+{
+    __block NSString *stringTemp = [NSString stringWithString:string];
+    [stringTemp enumerateSubstringsInRange:NSMakeRange(0, [string length])
+                                   options:NSStringEnumerationByComposedCharacterSequences
+                                usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+                                    const unichar hs = [substring characterAtIndex:0];
+                                    if (0xd800 <= hs && hs <= 0xdbff) {
+                                        if (substring.length > 1) {
+                                            const unichar ls = [substring characterAtIndex:1];
+                                            const int uc = ((hs - 0xd800) * 0x400) + (ls - 0xdc00) + 0x10000;
+                                            if (0x1d000 <= uc && uc <= 0x1f77f) {
+                                                stringTemp = [stringTemp stringByReplacingOccurrencesOfString:substring withString:EMPTY_STRING];
+                                            }
+                                        }
+                                    } else if (substring.length > 1) {
+                                        const unichar ls = [substring characterAtIndex:1];
+                                        if (ls == 0x20e3) {
+                                            stringTemp = [stringTemp stringByReplacingOccurrencesOfString:substring withString:EMPTY_STRING];
+                                        }
+                                    } else {
+                                        if (0x2100 <= hs && hs <= 0x27ff) {
+                                            stringTemp = [stringTemp stringByReplacingOccurrencesOfString:substring withString:EMPTY_STRING];
+                                        } else if (0x2B05 <= hs && hs <= 0x2b07) {
+                                            stringTemp = [stringTemp stringByReplacingOccurrencesOfString:substring withString:EMPTY_STRING];
+                                        } else if (0x2934 <= hs && hs <= 0x2935) {
+                                            stringTemp = [stringTemp stringByReplacingOccurrencesOfString:substring withString:EMPTY_STRING];
+                                        } else if (0x3297 <= hs && hs <= 0x3299) {
+                                            stringTemp = [stringTemp stringByReplacingOccurrencesOfString:substring withString:EMPTY_STRING];
+                                        } else if (hs == 0xa9 || hs == 0xae || hs == 0x303d || hs == 0x3030 || hs == 0x2b55 || hs == 0x2b1c || hs == 0x2b1b || hs == 0x2b50) {
+                                            stringTemp = [stringTemp stringByReplacingOccurrencesOfString:substring withString:EMPTY_STRING];
+                                        }
+                                    }
+                                }];
+    
+    return stringTemp;
+}
+
++ (NSString *)encryptPhoneNumber:(NSString *)phoneNumber
+{
+    if (![NSString validateTel:phoneNumber]) {
+        return nil;
+    }
+    return [phoneNumber stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"XXXX"];
+}
+
++ (NSString *)encryptPhoneNumber:(NSString *)phoneNumber string:(NSString *)string;
+{
+    if (![NSString validateTel:phoneNumber]) {
+        return nil;
+    }
+    return [phoneNumber stringByReplacingCharactersInRange:NSMakeRange(3, string.length) withString:string];
+}
+
++ (NSString *)convertDate:(NSDate *)date;
+{
+    NSTimeInterval interval = [[NSDate date] timeIntervalSinceDate:date];
+    return [NSString stringWithFormat:@"%.f小时前", interval / 3600];
+}
 @end

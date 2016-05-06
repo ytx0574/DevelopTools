@@ -15,5 +15,5 @@
 
 
 #warning  \
-1. 设置Prefix Header->  $(SRCROOT)/$(PRODUCT_NAME)/Helpers/Header.pch \
-2. 设置 "RACObjCRuntime.m"->   -fno-objc-arc
+1. Set Prefix Header->  $(SRCROOT)/$(PRODUCT_NAME)/Helpers/Header.pch \
+2. Set "RACObjCRuntime.m"->   -fno-objc-arc

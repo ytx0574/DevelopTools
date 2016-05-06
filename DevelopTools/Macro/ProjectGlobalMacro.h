@@ -6,21 +6,33 @@
 //  Copyright (c) 2015 成都洪茂科技有限公司. All rights reserved.
 //
 
+
+#pragma mark - 部分功能开关 不区分debug release
+
+#warning        Whether open part of the third party in the "Helper" class function, lack of support package to import
+#define FunctionSwitch_BaiduMap            false
+#define FunctionSwitch_UM                  false
+
+
+#warning        1=ReleaseUrl, 2=TestUrl, 3=Fixed IP, Please configuration The "InterfaceUrl"
+#define InterfaceUrlType                   1
+
+
+
+
 #pragma mark - BaiduMap
 #define BaiduMapAK                           @"6ueOKQBTn7dPIAAjozhk685M"
 
-//#import "PPRevealSideViewController.h"
-//#define IsMine(uid)                         [uid isEqualToString:[UserInstance localIdentifier]]
-//#define ROOTVIEWCONTROLLER                  ((PPRevealSideViewController *)[[[[UIApplication sharedApplication] delegate] window] rootViewController])
+
+#pragma mark - UM
+
+
+#pragma mark - Global
 #define ROOTNAVIGATIONCONROLLER             ((BaseNVC *)[[[[UIApplication sharedApplication] delegate] window] rootViewController])
-
-
-#define CoilMainColor                           RGB(83, 155, 244)
-
 
 /**全局的cell的标志 */
 static NSString *cellIdentifier =               @"cellIdentifier";
-static NSString *cellIdentifierReusableView =   @"cellIdentifierReusableView";
+static NSString *cellIdentifierReusableView =   @"cellIdentifierReusbleView";
 /**本地替换返回数据key*/
 static NSString *localIdentifier =              @"localIdentifier";
 static NSString *localDescription =             @"localDescription";
@@ -35,12 +47,23 @@ static NSString *localDescription =             @"localDescription";
 
 
 #pragma mark - Interface
-/**测试服*/
-//#define InterfaceUrl                        @"http://test.hongmaofalv.com/hmfl3"
-/**正式服*/
-#define InterfaceUrl                        @"http://whojoin-appserver-test.obaymax.com"
-/**固定机器*/
-//#define InterfaceUrl                        @"http://192.168.1.3:8080/hmfl3"
+
+
+#if InterfaceUrlType == 1
+
+    #define InterfaceUrl                        @"http://whojoin-appserver-test.obaymax.com"
+
+#elif InterfaceUrlType == 2
+
+    #define InterfaceUrl                        @"http://test.hongmaofalv.com/hmfl3"
+
+#else
+
+    #define InterfaceUrl                        @"http://192.168.1.3:8080/hmfl3"
+
+#endif
+
+
 
 
 

@@ -32,7 +32,7 @@ static char CallBackKey;
     IF_RETURN(!urlString)
     NSURL *url = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    [request setValue:[Helper triple3DES:@"www.hongmaofalv.com" desKey:@"hongmaofalvfly4000041200" encryptOrDecrypt:kCCEncrypt] forHTTPHeaderField:@"html"];
+    [request setValue:[NSString triple3DES:@"www.hongmaofalv.com" desKey:@"hongmaofalvfly4000041200" encryptOrDecrypt:kCCEncrypt] forHTTPHeaderField:@"html"];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue new] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         if (data) {
             NSLog(@"responseString ->%@  responseObject -> %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding], [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:NULL]);

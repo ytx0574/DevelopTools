@@ -11,7 +11,7 @@
 #define BackGroundColor       RGB(243, 243, 243)
 #define LineHeight            0.5f
 #define NormalTextColor       RGB(120, 127, 133)
-#define HighlightTextColor    CoilMainColor
+#define HighlightTextColor    RGB(120, 127, 0)
 #define TextFont              FONT(11)
 #define ImageEdgeInset        UIEdgeInsetsMake(-10, 0, 0, 0)
 

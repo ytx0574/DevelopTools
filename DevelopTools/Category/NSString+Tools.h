@@ -24,20 +24,15 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import <CommonCrypto/CommonCrypto.h>
 
 @interface NSString (Tools)
 
 #define MYBUNDLE_NAME @"GLResources.bundle"
 #define MYBUNDLE_PATH [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: MYBUNDLE_NAME]
 #define MYBUNDLE [NSBundle bundleWithPath: MYBUNDLE_PATH]
-/**
- *  从bundle里面读取图片文件
- *
- *  @param name bundle里面的图片文件名
- *
- *  @return UIImage
- */
-+ (UIImage *)readBundleImageNamed:(NSString *)name;
+
+
 /**
  *  MD5加密字符串
  *
@@ -45,9 +40,9 @@
  *
  *  @return 加密后的字符串
  */
-+ (NSString*)md5Str:(NSString*)str;
++ (NSString *)md5Str:(NSString*)str;
 /**
- *  文本先进行DES加密。然后再转成base64
+ *  文本先进行DES加密。然后再转成base64字符串
  *
  *  @param text 被加密的字符串
  *  @param key  加密的key
@@ -56,7 +51,7 @@
  */
 + (NSString *)base64StringFromText:(NSString *)text withKey:(NSString*)key;
 /**
- *  先把base64转为文本。然后再DES解密
+ *  先把base64字符串转为文本。然后再DES解密
  *
  *  @param withKey:NSString* 被解密的字符串
  *  @param key  加密的key
@@ -116,13 +111,23 @@
  *
  *  @return 转换后的data
  */
-+ (NSData*)parseHexToByteArray:(NSString*) hexString;
++ (NSData *)parseHexToByteArray:(NSString*) hexString;
+/**
+ *  3DES加密
+ *
+ *  @param plainText        加密串
+ *  @param desKey           加密key
+ *  @param encryptOrDecrypt 加密 or 解密
+ *
+ *  @return 加密 or 解密后的字符串
+ */
++ (NSString *)triple3DES:(NSString *)plainText desKey:(NSString *)desKey encryptOrDecrypt:(CCOperation)encryptOrDecrypt;
 /**
  *  SHA 加密
  *
  *  @return 加密后的字符串
  */
-- (NSString*)sha;
+- (NSString *)sha;
 /**
  *  MD5加密
  *
@@ -147,24 +152,13 @@
  *  @return 解码后的字符串
  */
 - (NSString*)urlDecodedString;
-/**
- *  Unicode转换为汉字
- *
- *  @param unicodeStr unicode字符串
- *
- *  @return 转换后的汉字
- */
-+ (NSString *)replaceUnicode:(NSString *)unicodeStr;
 
-/**
- *  过滤掉emoji文字
- *
- *  @param string <#string description#>
- *
- *  @return <#return value description#>
- */
-+ (NSString *)filterEmoji:(NSString *)string;
 
+@end
+
+
+
+@interface NSString (validate)
 
 + (BOOL)validateName:(NSString *)candidate;
 
@@ -194,11 +188,7 @@
 
 @end
 
-@interface NSString (Operation)
-+ (NSString *)encryptPhoneNumber:(NSString *)phoneNumber;
-+ (NSString *)encryptPhoneNumber:(NSString *)phoneNumber string:(NSString *)string;
-+ (NSString *)convertDate:(NSDate *)date;
-@end
+
 
 @interface NSString (Runtime)
 
@@ -206,3 +196,28 @@
 
 @end
 
+
+
+@interface NSString (Operation)
+/**
+ *  Unicode转换为汉字
+ *
+ *  @param unicodeStr unicode字符串
+ *
+ *  @return 转换后的汉字
+ */
++ (NSString *)replaceUnicode:(NSString *)unicodeStr;
+
+/**
+ *  过滤掉emoji文字
+ *
+ *  @param string <#string description#>
+ *
+ *  @return <#return value description#>
+ */
++ (NSString *)filterEmoji:(NSString *)string;
+
++ (NSString *)encryptPhoneNumber:(NSString *)phoneNumber;
++ (NSString *)encryptPhoneNumber:(NSString *)phoneNumber string:(NSString *)string;
++ (NSString *)convertDate:(NSDate *)date;
+@end

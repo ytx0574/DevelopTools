@@ -6,11 +6,19 @@
 //  Copyright (c) 2015 成都洪茂科技有限公司. All rights reserved.
 //
 
+
 #import <Foundation/Foundation.h>
-#import <CommonCrypto/CommonCrypto.h>
-//#import "UMSocialAccountManager.h"
-//#import <BaiduMapAPI_Search/BMKGeocodeType.h>
-#import <MapKit/MapKit.h>
+#import "AFNetworkReachabilityManager.h"
+
+#if FunctionSwitch_BaiduMap
+#import "UMSocialAccountManager.h"
+#endif
+
+#if FunctionSwitch_UM
+#import <BaiduMapAPI_Search/BMKGeocodeType.h>
+#endif
+
+//#import <MapKit/MapKit.h>
 #import "User.h"
 @class CLLocation;
 @class CLPlacemark;
@@ -25,25 +33,40 @@ typedef NS_ENUM(NSInteger, CallStatus)
     CallStutusDisconnected,
 };
 
-#define Network            [[Helper shareInstance] network]
+
+
 @interface Helper : NSObject
 
 
 + (BOOL)network;
 
-+ (void)registerRemoteNotificationAndHandleLaunchOptions:(NSDictionary *)launchOptions;
++ (AFNetworkReachabilityStatus)networkStatus;
 
-+ (void)sendSMSCodeWithPhoneNumber:(NSString *)phoneNumber complete:(void(^)(BOOL status, NSString *code))complete;
++ (void)networkStatusChanged:(void(^)(AFNetworkReachabilityStatus status))complete;
+
+
+
+
++ (void)registerRemoteNotificationAndHandleLaunchOptions:(NSDictionary *)launchOptions handlerComplete:(void(^)(NSDictionary *userInfo))handlerComplete;
+
++ (BOOL)isOpenRemotePush;
 
 + (void)ListeningCallStatus:(void(^)(CallStatus status))callStatus;
 
-//+ (void)getCurrentLocation:(void(^)(CLLocationCoordinate2D location, BMKReverseGeoCodeResult *result))positioningLocationComplete;
 
-+ (NSString *)triple3DES:(NSString *)plainText desKey:(NSString *)desKey encryptOrDecrypt:(CCOperation)encryptOrDecrypt;
+
 
 + (void)countDown:(NSInteger)second complete:(void(^)(NSInteger s))complete;
++ (void)cancelCountDown;
 
-+ (BOOL)isOpenRemotePush;
+
+
+
++ (BOOL)haveContactPermission;
+
++ (NSDictionary *)allContacts;
+
++ (NSDictionary *)allContactForMobilePhone;
 
 + (BOOL)queryContactWithName:(NSString *)name;
 
@@ -51,6 +74,23 @@ typedef NS_ENUM(NSInteger, CallStatus)
 
 
 
+
+#if FunctionSwitch_BaiduMap
++ (void)getCurrentLocation:(void(^)(CLLocationCoordinate2D location, BMKReverseGeoCodeResult *result))positioningLocationComplete;
+#endif
+
+
+
+#if FunctionSwitch_UM
++ (void)registerUM;
+
++ (void)authLoginWithPaltForm:(NSString *)paltformName completion:(void(^)(BOOL status, UMSocialAccountEntity *snsAccount))completion;
+
++ (void)shareWithPaltform:(NSArray *)paltforms content:(NSString *)content image:(UIImage *)image location:(CLLocation *)location urlResource:(UMSocialUrlResource *)urlResource presentedController:(UIViewController *)presentedController completion:(void(^)(BOOL status))completion;
+#endif
+
+
+//以下为当前项目使用
 + (BOOL)isLogin;
 
 + (void)setIsLogin:(BOOL)isLogin;
@@ -58,15 +98,6 @@ typedef NS_ENUM(NSInteger, CallStatus)
 + (void)navigationRightBackDisabled:(BOOL)back;
 
 
-
-//+ (BOOL)detectionInstallWeChat;
-
-//+ (void)registerUM;
-
-//+ (void)addRedLawyerContact;
-
-//+ (void)authLoginWithPaltForm:(NSString *)paltformName completion:(void(^)(BOOL status, UMSocialAccountEntity *snsAccount))completion;
-
-//+ (void)shareWithPaltform:(NSArray *)paltforms content:(NSString *)content image:(UIImage *)image location:(CLLocation *)location urlResource:(UMSocialUrlResource *)urlResource presentedController:(UIViewController *)presentedController completion:(void(^)(BOOL status))completion;
++ (void)sendSMSCodeWithPhoneNumber:(NSString *)phoneNumber complete:(void(^)(BOOL status, NSString *code))complete;
 
 @end
