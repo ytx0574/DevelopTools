@@ -49,7 +49,11 @@
 #import "UIImageView+WebCache.h"
 #import "UIButton+WebCache.h"
 #import "AFHTTPSessionManager.h"
-//#import "UMSocialSnsPlatformManager.h"
+
+#if FunctionSwitch_UM
+#import "UMSocialSnsPlatformManager.h"
+#endif
+
 #import "SVPullToRefresh.h"
 #import "IQKeyboardManager.h"
 #import "ReactiveCocoa.h"

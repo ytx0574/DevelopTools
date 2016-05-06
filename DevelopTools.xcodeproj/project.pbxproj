@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C9775281CDCA0C000D5C9D1 /* CustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C97751B1CDCA0C000D5C9D1 /* CustomTabBar.m */; };
+		2C9775291CDCA0C000D5C9D1 /* GuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C97751D1CDCA0C000D5C9D1 /* GuideView.m */; };
+		2C97752A1CDCA0C000D5C9D1 /* ModalBackGroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C97751F1CDCA0C000D5C9D1 /* ModalBackGroundView.m */; };
+		2C97752B1CDCA0C000D5C9D1 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9775211CDCA0C000D5C9D1 /* PlaceholderTextView.m */; };
+		2C97752C1CDCA0C000D5C9D1 /* ServiceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9775231CDCA0C000D5C9D1 /* ServiceView.m */; };
+		2C97752D1CDCA0C000D5C9D1 /* ShareBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9775251CDCA0C000D5C9D1 /* ShareBottomView.m */; };
+		2C97752E1CDCA0C000D5C9D1 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9775271CDCA0C000D5C9D1 /* ShareView.m */; };
 		2CB9C08F1CD0882F006C13B6 /* BaseNVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB9BE791CD0882E006C13B6 /* BaseNVC.m */; };
 		2CB9C0901CD0882F006C13B6 /* BaseTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB9BE7B1CD0882E006C13B6 /* BaseTVC.m */; };
 		2CB9C0911CD0882F006C13B6 /* BaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB9BE7D1CD0882E006C13B6 /* BaseVC.m */; };
@@ -28,13 +35,6 @@
 		2CB9C0A11CD0882F006C13B6 /* UITextField+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB9BE9E1CD0882E006C13B6 /* UITextField+Tools.m */; };
 		2CB9C0A21CD0882F006C13B6 /* UITextView+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB9BEA01CD0882E006C13B6 /* UITextView+Tools.m */; };
 		2CB9C0A31CD0882F006C13B6 /* UIView+Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB9BEA21CD0882E006C13B6 /* UIView+Tools.m */; };
-		2CB9C0A41CD0882F006C13B6 /* CustomTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB9BEA91CD0882E006C13B6 /* CustomTabBar.m */; };
-		2CB9C0A51CD0882F006C13B6 /* GuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB9BEAB1CD0882E006C13B6 /* GuideView.m */; };
-		2CB9C0A61CD0882F006C13B6 /* ModalBackGroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB9BEAD1CD0882E006C13B6 /* ModalBackGroundView.m */; };
-		2CB9C0A71CD0882F006C13B6 /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB9BEAF1CD0882E006C13B6 /* PlaceholderTextView.m */; };
-		2CB9C0A81CD0882F006C13B6 /* ServiceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB9BEB11CD0882E006C13B6 /* ServiceView.m */; };
-		2CB9C0A91CD0882F006C13B6 /* ShareBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB9BEB31CD0882E006C13B6 /* ShareBottomView.m */; };
-		2CB9C0AA1CD0882F006C13B6 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB9BEB51CD0882E006C13B6 /* ShareView.m */; };
 		2CB9C0AB1CD0882F006C13B6 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB9BEB91CD0882E006C13B6 /* Helper.m */; };
 		2CB9C0AC1CD0882F006C13B6 /* LocalStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB9BEBB1CD0882E006C13B6 /* LocalStorage.m */; };
 		2CB9C0AD1CD0882F006C13B6 /* SelectAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB9BEBD1CD0882E006C13B6 /* SelectAlbum.m */; };
@@ -256,6 +256,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C97751A1CDCA0C000D5C9D1 /* CustomTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBar.h; sourceTree = "<group>"; };
+		2C97751B1CDCA0C000D5C9D1 /* CustomTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBar.m; sourceTree = "<group>"; };
+		2C97751C1CDCA0C000D5C9D1 /* GuideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideView.h; sourceTree = "<group>"; };
+		2C97751D1CDCA0C000D5C9D1 /* GuideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideView.m; sourceTree = "<group>"; };
+		2C97751E1CDCA0C000D5C9D1 /* ModalBackGroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalBackGroundView.h; sourceTree = "<group>"; };
+		2C97751F1CDCA0C000D5C9D1 /* ModalBackGroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalBackGroundView.m; sourceTree = "<group>"; };
+		2C9775201CDCA0C000D5C9D1 /* PlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderTextView.h; sourceTree = "<group>"; };
+		2C9775211CDCA0C000D5C9D1 /* PlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceholderTextView.m; sourceTree = "<group>"; };
+		2C9775221CDCA0C000D5C9D1 /* ServiceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceView.h; sourceTree = "<group>"; };
+		2C9775231CDCA0C000D5C9D1 /* ServiceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceView.m; sourceTree = "<group>"; };
+		2C9775241CDCA0C000D5C9D1 /* ShareBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareBottomView.h; sourceTree = "<group>"; };
+		2C9775251CDCA0C000D5C9D1 /* ShareBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareBottomView.m; sourceTree = "<group>"; };
+		2C9775261CDCA0C000D5C9D1 /* ShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareView.h; sourceTree = "<group>"; };
+		2C9775271CDCA0C000D5C9D1 /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
 		2CB9BE781CD0882E006C13B6 /* BaseNVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNVC.h; sourceTree = "<group>"; };
 		2CB9BE791CD0882E006C13B6 /* BaseNVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNVC.m; sourceTree = "<group>"; };
 		2CB9BE7A1CD0882E006C13B6 /* BaseTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTVC.h; sourceTree = "<group>"; };
@@ -298,20 +312,6 @@
 		2CB9BEA01CD0882E006C13B6 /* UITextView+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Tools.m"; sourceTree = "<group>"; };
 		2CB9BEA11CD0882E006C13B6 /* UIView+Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Tools.h"; sourceTree = "<group>"; };
 		2CB9BEA21CD0882E006C13B6 /* UIView+Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Tools.m"; sourceTree = "<group>"; };
-		2CB9BEA81CD0882E006C13B6 /* CustomTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBar.h; sourceTree = "<group>"; };
-		2CB9BEA91CD0882E006C13B6 /* CustomTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBar.m; sourceTree = "<group>"; };
-		2CB9BEAA1CD0882E006C13B6 /* GuideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideView.h; sourceTree = "<group>"; };
-		2CB9BEAB1CD0882E006C13B6 /* GuideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideView.m; sourceTree = "<group>"; };
-		2CB9BEAC1CD0882E006C13B6 /* ModalBackGroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModalBackGroundView.h; sourceTree = "<group>"; };
-		2CB9BEAD1CD0882E006C13B6 /* ModalBackGroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModalBackGroundView.m; sourceTree = "<group>"; };
-		2CB9BEAE1CD0882E006C13B6 /* PlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderTextView.h; sourceTree = "<group>"; };
-		2CB9BEAF1CD0882E006C13B6 /* PlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceholderTextView.m; sourceTree = "<group>"; };
-		2CB9BEB01CD0882E006C13B6 /* ServiceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceView.h; sourceTree = "<group>"; };
-		2CB9BEB11CD0882E006C13B6 /* ServiceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceView.m; sourceTree = "<group>"; };
-		2CB9BEB21CD0882E006C13B6 /* ShareBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareBottomView.h; sourceTree = "<group>"; };
-		2CB9BEB31CD0882E006C13B6 /* ShareBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareBottomView.m; sourceTree = "<group>"; };
-		2CB9BEB41CD0882E006C13B6 /* ShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareView.h; sourceTree = "<group>"; };
-		2CB9BEB51CD0882E006C13B6 /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
 		2CB9BEB71CD0882E006C13B6 /* Header.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Header.pch; sourceTree = "<group>"; };
 		2CB9BEB81CD0882E006C13B6 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
 		2CB9BEB91CD0882E006C13B6 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
@@ -778,6 +778,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C9775171CDCA0C000D5C9D1 /* CurrentProject */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CurrentProject;
+			sourceTree = "<group>";
+		};
+		2C9775181CDCA0C000D5C9D1 /* CustomUIControl */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CustomUIControl;
+			sourceTree = "<group>";
+		};
+		2C9775191CDCA0C000D5C9D1 /* CustomUIView */ = {
+			isa = PBXGroup;
+			children = (
+				2C97751A1CDCA0C000D5C9D1 /* CustomTabBar.h */,
+				2C97751B1CDCA0C000D5C9D1 /* CustomTabBar.m */,
+				2C97751C1CDCA0C000D5C9D1 /* GuideView.h */,
+				2C97751D1CDCA0C000D5C9D1 /* GuideView.m */,
+				2C97751E1CDCA0C000D5C9D1 /* ModalBackGroundView.h */,
+				2C97751F1CDCA0C000D5C9D1 /* ModalBackGroundView.m */,
+				2C9775201CDCA0C000D5C9D1 /* PlaceholderTextView.h */,
+				2C9775211CDCA0C000D5C9D1 /* PlaceholderTextView.m */,
+				2C9775221CDCA0C000D5C9D1 /* ServiceView.h */,
+				2C9775231CDCA0C000D5C9D1 /* ServiceView.m */,
+				2C9775241CDCA0C000D5C9D1 /* ShareBottomView.h */,
+				2C9775251CDCA0C000D5C9D1 /* ShareBottomView.m */,
+				2C9775261CDCA0C000D5C9D1 /* ShareView.h */,
+				2C9775271CDCA0C000D5C9D1 /* ShareView.m */,
+			);
+			path = CustomUIView;
+			sourceTree = "<group>";
+		};
 		2CB9BE771CD0882E006C13B6 /* BaseClasses */ = {
 			isa = PBXGroup;
 			children = (
@@ -844,59 +879,24 @@
 		2CB9BEA41CD0882E006C13B6 /* CustomControls */ = {
 			isa = PBXGroup;
 			children = (
-				2CB9BEA51CD0882E006C13B6 /* CurrentProject */,
-				2CB9BEA61CD0882E006C13B6 /* CustomUIControl */,
-				2CB9BEA71CD0882E006C13B6 /* CustomUIView */,
+				2C9775171CDCA0C000D5C9D1 /* CurrentProject */,
+				2C9775181CDCA0C000D5C9D1 /* CustomUIControl */,
+				2C9775191CDCA0C000D5C9D1 /* CustomUIView */,
 			);
 			path = CustomControls;
-			sourceTree = "<group>";
-		};
-		2CB9BEA51CD0882E006C13B6 /* CurrentProject */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CurrentProject;
-			sourceTree = "<group>";
-		};
-		2CB9BEA61CD0882E006C13B6 /* CustomUIControl */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CustomUIControl;
-			sourceTree = "<group>";
-		};
-		2CB9BEA71CD0882E006C13B6 /* CustomUIView */ = {
-			isa = PBXGroup;
-			children = (
-				2CB9BEA81CD0882E006C13B6 /* CustomTabBar.h */,
-				2CB9BEA91CD0882E006C13B6 /* CustomTabBar.m */,
-				2CB9BEAA1CD0882E006C13B6 /* GuideView.h */,
-				2CB9BEAB1CD0882E006C13B6 /* GuideView.m */,
-				2CB9BEAC1CD0882E006C13B6 /* ModalBackGroundView.h */,
-				2CB9BEAD1CD0882E006C13B6 /* ModalBackGroundView.m */,
-				2CB9BEAE1CD0882E006C13B6 /* PlaceholderTextView.h */,
-				2CB9BEAF1CD0882E006C13B6 /* PlaceholderTextView.m */,
-				2CB9BEB01CD0882E006C13B6 /* ServiceView.h */,
-				2CB9BEB11CD0882E006C13B6 /* ServiceView.m */,
-				2CB9BEB21CD0882E006C13B6 /* ShareBottomView.h */,
-				2CB9BEB31CD0882E006C13B6 /* ShareBottomView.m */,
-				2CB9BEB41CD0882E006C13B6 /* ShareView.h */,
-				2CB9BEB51CD0882E006C13B6 /* ShareView.m */,
-			);
-			path = CustomUIView;
 			sourceTree = "<group>";
 		};
 		2CB9BEB61CD0882E006C13B6 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				2CB9BEB71CD0882E006C13B6 /* Header.pch */,
-				2CB9BEBE1CD0882E006C13B6 /* ToolsHeader.h */,
 				2CB9BEB81CD0882E006C13B6 /* Helper.h */,
 				2CB9BEB91CD0882E006C13B6 /* Helper.m */,
 				2CB9BEBA1CD0882E006C13B6 /* LocalStorage.h */,
 				2CB9BEBB1CD0882E006C13B6 /* LocalStorage.m */,
 				2CB9BEBC1CD0882E006C13B6 /* SelectAlbum.h */,
 				2CB9BEBD1CD0882E006C13B6 /* SelectAlbum.m */,
+				2CB9BEBE1CD0882E006C13B6 /* ToolsHeader.h */,
+				2CB9BEB71CD0882E006C13B6 /* Header.pch */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1720,7 +1720,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CB9C1641CD0882F006C13B6 /* UISegmentedControl+RACSignalSupport.m in Sources */,
-				2CB9C0A61CD0882F006C13B6 /* ModalBackGroundView.m in Sources */,
 				2CB9C1311CD0882F006C13B6 /* RACDynamicSequence.m in Sources */,
 				2CB9C0E51CD0882F006C13B6 /* FLEXExplorerViewController.m in Sources */,
 				2CB9C0D31CD0882F006C13B6 /* FLEXArgumentInputFontsPickerView.m in Sources */,
@@ -1750,6 +1749,7 @@
 				2CB9C1281CD0882F006C13B6 /* RACArraySequence.m in Sources */,
 				2CB9C1811CD0883E006C13B6 /* Aspects.m in Sources */,
 				2CB9C1341CD0882F006C13B6 /* RACEmptySequence.m in Sources */,
+				2C97752D1CDCA0C000D5C9D1 /* ShareBottomView.m in Sources */,
 				2CB9C0DF1CD0882F006C13B6 /* FLEXFieldEditorView.m in Sources */,
 				2CB9C1491CD0882F006C13B6 /* RACSignal.m in Sources */,
 				2CB9C10D1CD0882F006C13B6 /* IQTitleBarButtonItem.m in Sources */,
@@ -1760,12 +1760,14 @@
 				2CB9C0CB1CD0882F006C13B6 /* AGIPCToolbarItem.m in Sources */,
 				2CB9C09F1CD0882F006C13B6 /* UIResponder+Tools.m in Sources */,
 				2CB9C0F51CD0882F006C13B6 /* FLEXImageExplorerViewController.m in Sources */,
+				2C97752C1CDCA0C000D5C9D1 /* ServiceView.m in Sources */,
 				2CB9C12B1CD0882F006C13B6 /* RACChannel.m in Sources */,
 				2CB9C0F91CD0882F006C13B6 /* FLEXViewControllerExplorerViewController.m in Sources */,
 				2CB9C0C81CD0882F006C13B6 /* AGIPCAssetsController.m in Sources */,
 				2CB9C0BC1CD0882F006C13B6 /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				2CB9C1231CD0882F006C13B6 /* NSString+RACKeyPathUtilities.m in Sources */,
 				2CB9C0E91CD0882F006C13B6 /* FLEXClassesTableViewController.m in Sources */,
+				2C97752A1CDCA0C000D5C9D1 /* ModalBackGroundView.m in Sources */,
 				2CB9C12F1CD0882F006C13B6 /* RACDelegateProxy.m in Sources */,
 				2CB9C10C1CD0882F006C13B6 /* IQPreviousNextView.m in Sources */,
 				2CB9C17B1CD0882F006C13B6 /* UIView+WebCacheOperation.m in Sources */,
@@ -1779,7 +1781,6 @@
 				2CB9C12C1CD0882F006C13B6 /* RACCommand.m in Sources */,
 				2CB9C1591CD0882F006C13B6 /* UIActionSheet+RACSignalSupport.m in Sources */,
 				2CB9C0B31CD0882F006C13B6 /* UILabel+MBIBnsepectable.m in Sources */,
-				2CB9C0A41CD0882F006C13B6 /* CustomTabBar.m in Sources */,
 				2CB9C0AF1CD0882F006C13B6 /* BaseUIImageView.m in Sources */,
 				2CB9C1201CD0882F006C13B6 /* NSObject+RACSelectorSignal.m in Sources */,
 				2CB9C0F21CD0882F006C13B6 /* FLEXDefaultsExplorerViewController.m in Sources */,
@@ -1793,10 +1794,12 @@
 				2CB9C1151CD0882F006C13B6 /* NSDictionary+RACSequenceAdditions.m in Sources */,
 				2CB9C1721CD0882F006C13B6 /* SDWebImageDownloaderOperation.m in Sources */,
 				2CB9C0FB1CD0882F006C13B6 /* FLEXHeapEnumerator.m in Sources */,
+				2C97752B1CDCA0C000D5C9D1 /* PlaceholderTextView.m in Sources */,
 				2CB9C1561CD0882F006C13B6 /* RACUnarySequence.m in Sources */,
 				2CB9C16D1CD0882F006C13B6 /* NSData+ImageContentType.m in Sources */,
 				2CB9C14D1CD0882F006C13B6 /* RACStringSequence.m in Sources */,
 				2CB9C0F41CD0882F006C13B6 /* FLEXDictionaryExplorerViewController.m in Sources */,
+				2C9775281CDCA0C000D5C9D1 /* CustomTabBar.m in Sources */,
 				2CB9C13A1CD0882F006C13B6 /* RACIndexSetSequence.m in Sources */,
 				2CB9C0B01CD0882F006C13B6 /* BaseUILabel.m in Sources */,
 				2CB9C1741CD0882F006C13B6 /* SDWebImagePrefetcher.m in Sources */,
@@ -1874,7 +1877,6 @@
 				2CB9C0961CD0882F006C13B6 /* UIActionSheet+Tools.m in Sources */,
 				2CB9C1381CD0882F006C13B6 /* RACGroupedSignal.m in Sources */,
 				2CB9C0F81CD0882F006C13B6 /* FLEXSetExplorerViewController.m in Sources */,
-				2CB9C0A81CD0882F006C13B6 /* ServiceView.m in Sources */,
 				2CB9C1681CD0882F006C13B6 /* UITableViewCell+RACSignalSupport.m in Sources */,
 				2CB9C1351CD0882F006C13B6 /* RACEmptySignal.m in Sources */,
 				2CB9C0DE1CD0882F006C13B6 /* FLEXDefaultEditorViewController.m in Sources */,
@@ -1882,7 +1884,6 @@
 				2CB9C0B61CD0882F006C13B6 /* KDCycleBannerView.m in Sources */,
 				2CB9C0FF1CD0882F006C13B6 /* FLEXHierarchyTableViewCell.m in Sources */,
 				2CB9C0BB1CD0882F006C13B6 /* SVRadialGradientLayer.m in Sources */,
-				2CB9C0A51CD0882F006C13B6 /* GuideView.m in Sources */,
 				2CB9C1821CD0883E006C13B6 /* Model.m in Sources */,
 				2CB9C0BA1CD0882F006C13B6 /* SVProgressHUD.m in Sources */,
 				2CB9C0F31CD0882F006C13B6 /* FLEXDescriptionTableViewCell.m in Sources */,
@@ -1893,7 +1894,6 @@
 				2CB9C1181CD0882F006C13B6 /* NSIndexSet+RACSequenceAdditions.m in Sources */,
 				2CB9C0EB1CD0882F006C13B6 /* FLEXGlobalsTableViewController.m in Sources */,
 				2CB9C0DC1CD0882F006C13B6 /* FLEXArgumentInputView.m in Sources */,
-				2CB9C0AA1CD0882F006C13B6 /* ShareView.m in Sources */,
 				2CB9C1291CD0882F006C13B6 /* RACBehaviorSubject.m in Sources */,
 				2CB9C0911CD0882F006C13B6 /* BaseVC.m in Sources */,
 				2CB9C13C1CD0882F006C13B6 /* RACKVOProxy.m in Sources */,
@@ -1934,7 +1934,6 @@
 				2CB9C1471CD0882F006C13B6 /* RACSerialDisposable.m in Sources */,
 				2CB9C0941CD0882F006C13B6 /* NSString+Tools.m in Sources */,
 				2CB9C16F1CD0882F006C13B6 /* SDWebImageCompat.m in Sources */,
-				2CB9C0A71CD0882F006C13B6 /* PlaceholderTextView.m in Sources */,
 				2CB9C14E1CD0882F006C13B6 /* RACSubject.m in Sources */,
 				2CB9C1321CD0882F006C13B6 /* RACDynamicSignal.m in Sources */,
 				2CB9C1431CD0882F006C13B6 /* RACReturnSignal.m in Sources */,
@@ -1942,12 +1941,12 @@
 				2CB9C1161CD0882F006C13B6 /* NSEnumerator+RACSequenceAdditions.m in Sources */,
 				2CB9C13F1CD0882F006C13B6 /* RACObjCRuntime.m in Sources */,
 				2CB9C1551CD0882F006C13B6 /* RACTupleSequence.m in Sources */,
+				2C97752E1CDCA0C000D5C9D1 /* ShareView.m in Sources */,
 				2CB9C1671CD0882F006C13B6 /* UISwitch+RACSignalSupport.m in Sources */,
 				2CB9C0E61CD0882F006C13B6 /* FLEXManager.m in Sources */,
 				2CB9C0AE1CD0882F006C13B6 /* BaseUIButton.m in Sources */,
 				2CB9C1331CD0882F006C13B6 /* RACEagerSequence.m in Sources */,
 				2CB9C13E1CD0882F006C13B6 /* RACMulticastConnection.m in Sources */,
-				2CB9C0A91CD0882F006C13B6 /* ShareBottomView.m in Sources */,
 				2CB9C1401CD0882F006C13B6 /* RACPassthroughSubscriber.m in Sources */,
 				2CB9C0F01CD0882F006C13B6 /* FLEXArrayExplorerViewController.m in Sources */,
 				2CB9C0E41CD0882F006C13B6 /* FLEXExplorerToolbar.m in Sources */,
@@ -1957,6 +1956,7 @@
 				2CB9C1371CD0882F006C13B6 /* RACEvent.m in Sources */,
 				2CB9C16C1CD0882F006C13B6 /* MKAnnotationView+WebCache.m in Sources */,
 				2CB9C1751CD0882F006C13B6 /* UIButton+WebCache.m in Sources */,
+				2C9775291CDCA0C000D5C9D1 /* GuideView.m in Sources */,
 				2CB9C10F1CD0882F006C13B6 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				2CB9C0DD1CD0882F006C13B6 /* FLEXArgumentInputViewFactory.m in Sources */,
 			);
