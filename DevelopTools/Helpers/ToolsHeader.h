@@ -44,6 +44,7 @@
 
 #pragma mark - Assist
 #import "Helper.h"
+#import "SuperModel.h"
 #import "User.h"
 #pragma mark - VendorsLibraries
 #import "UIImageView+WebCache.h"
@@ -57,7 +58,6 @@
 #import "SVPullToRefresh.h"
 #import "IQKeyboardManager.h"
 #import "ReactiveCocoa.h"
-
 
 #pragma mark - Model
 

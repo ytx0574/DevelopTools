@@ -61,6 +61,24 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oCb-LT-DFo">
+                                <rect key="frame" x="23" y="406" width="32" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <animations/>
+                                <state key="normal" title="start"/>
+                                <connections>
+                                    <action selector="clickStart:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="FOJ-Nl-1FM"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CBc-4g-z3l">
+                                <rect key="frame" x="105" y="406" width="31" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <animations/>
+                                <state key="normal" title="stop"/>
+                                <connections>
+                                    <action selector="clickStop:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="rHa-wF-6wz"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -79,7 +97,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="364" y="350"/>
+            <point key="canvasLocation" x="675" y="384"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="SVi-mp-yR9">
@@ -96,7 +114,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aMI-Rd-ogd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="948" y="401"/>
+            <point key="canvasLocation" x="1113" y="411"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ePk-xW-qqv">

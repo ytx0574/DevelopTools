@@ -45,8 +45,6 @@ typedef NS_ENUM(NSInteger, CallStatus)
 + (void)networkStatusChanged:(void(^)(AFNetworkReachabilityStatus status))complete;
 
 
-
-
 + (void)registerRemoteNotificationAndHandleLaunchOptions:(NSDictionary *)launchOptions handlerComplete:(void(^)(NSDictionary *userInfo))handlerComplete;
 
 + (BOOL)isOpenRemotePush;
@@ -54,24 +52,8 @@ typedef NS_ENUM(NSInteger, CallStatus)
 + (void)ListeningCallStatus:(void(^)(CallStatus status))callStatus;
 
 
-
-
 + (void)countDown:(NSInteger)second complete:(void(^)(NSInteger s))complete;
 + (void)cancelCountDown;
-
-
-
-
-+ (BOOL)haveContactPermission;
-
-+ (NSDictionary *)allContacts;
-
-+ (NSDictionary *)allContactForMobilePhone;
-
-+ (BOOL)queryContactWithName:(NSString *)name;
-
-+ (void)addContactWithName:(NSString *)name phone:(NSString *)phone;
-
 
 
 
@@ -88,6 +70,7 @@ typedef NS_ENUM(NSInteger, CallStatus)
 
 + (void)shareWithPaltform:(NSArray *)paltforms content:(NSString *)content image:(UIImage *)image location:(CLLocation *)location urlResource:(UMSocialUrlResource *)urlResource presentedController:(UIViewController *)presentedController completion:(void(^)(BOOL status))completion;
 #endif
+
 
 
 //以下为当前项目使用

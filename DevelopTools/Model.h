@@ -6,9 +6,9 @@
 //  Copyright © 2016 Johnson. All rights reserved.
 //
 
-#import "LocalStorage.h"
+#import "LocalStorageHelper.h"
 
-@interface Model : LocalStorage
+@interface Model : LocalStorageHelper
 + (instancetype)shareInstance;
 @property (nonatomic, copy) NSString *a;
 @property (nonatomic, copy) NSString *b;

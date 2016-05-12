@@ -45,55 +45,6 @@ static char CallBackKey;
 
 
 
-- (NSDictionary *)customParameter:(NSDictionary *)parameter
-{
-    return [self customInterface:nil parameter:parameter];
-}
-
-- (NSString *)customInterface:(NSString *)interface
-{
-    return [NSString stringWithFormat:@"%@/%@", InterfaceUrl, interface];
-}
-
-- (NSDictionary *)customInterface:(NSString *)interface parameter:(NSDictionary *)parameter
-{
-    if (interface) {
-        
-    }
-    
-    return parameter;
-}
-
-- (AFHTTPSessionManager *)customHttpSessionManager
-{
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-//    [[User shareInstance] accessToken] ? [manager.requestSerializer setValue:[[User shareInstance] accessToken] forHTTPHeaderField:@"X-Access-Token"] : nil;
-    return manager;
-}
-
-
-
-+ (NSURLSessionTask *)getForInterfaceName:(NSString *)interfaceName Parameter:(NSDictionary *)parameter success:(void (^)(NSURLSessionTask *task, id responseObject))success failure:(void (^)(NSURLSessionTask *task, NSError *error))failure;
-{
-    return [[self customHttpSessionManager] GET:[self customInterface:interfaceName] parameters:[self customParameter:parameter] progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success ? success(task, responseObject) : nil;
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        failure ? failure(task, error) : nil;
-    }];
-}
-
-+ (NSURLSessionTask *)postForInterfaceName:(NSString *)interfaceName Parameter:(NSDictionary *)parameter success:(void (^)(NSURLSessionTask *task, id responseObject))success failure:(void (^)(NSURLSessionTask *task, NSError *error))failure;
-{
-    return [[self customHttpSessionManager] POST:[self customInterface:interfaceName] parameters:[self customParameter:parameter] progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        success ? success(task, responseObject) : nil;
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        success ? success(task, error) : nil;
-    }];
-}
-
 + (void)httpRequestLog:(NSURLRequest *)request parameters:(NSDictionary *)parameters;
 {
     NSString *httpBodyString = [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding];
@@ -118,98 +69,12 @@ static char CallBackKey;
     
 }
 
-#pragma mark - Calculate
-- (CGFloat)calculateCellHeightWithCellWidth:(CGFloat)cellWidth initCellBlock:(UITableViewCell * (^)())initCellBlock
-{
-    if (!initCellBlock) return 44;
-    UITableViewCell *cell = initCellBlock ? initCellBlock() : nil;
-    
-    cell.contentView.bounds = CGRectMake(0, 0, cellWidth, 0);
-    
-    [cell prepareForReuse];
-    
-    NSLayoutConstraint *tempWidthConstraint =
-    [NSLayoutConstraint constraintWithItem:cell.contentView
-                                 attribute:NSLayoutAttributeWidth
-                                 relatedBy:NSLayoutRelationEqual
-                                    toItem:nil
-                                 attribute:NSLayoutAttributeNotAnAttribute
-                                multiplier:1.0
-                                  constant:cellWidth];
-    [cell.contentView addConstraint:tempWidthConstraint];
-    
-    CGSize fittingSize = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    
-    [cell.contentView removeConstraint:tempWidthConstraint];
-    
-    return fittingSize.height + 1;
-}
-
 #pragma mark - VirtualMethods
 - (id)setInfo:(id)info;
 {
     return nil;
 }
 
-#pragma mark - CurrentProject
-+ (NSURLSessionTask *)assistHttpForInterface:(NSString *)interface parameter:(NSDictionary *)parameter success:(void (^)(NSInteger code, NSString *msg, id responseObject, BOOL status))success failure:(void (^)(NSURLSessionTask *task, NSError *error))failure
-{
-    return [[self class] postForInterfaceName:interface Parameter:parameter success:^(NSURLSessionTask *task, id responseObject) {
-        SVDismiss;
-        
-        NSInteger code = [responseObject[@"code"] integerValue];
-        NSString *msg = responseObject[@"msg"];
-        success ? success(code, msg, responseObject, (code == 0) ? YES : NO) : nil;
-
-    } failure:^(NSURLSessionTask *task, NSError *error) {
-        SVDismiss;
-        
-        if (!failure) {ShowAlert(@"网络似乎抽风了");}
-        failure ? failure(task, error) : nil;
-    }];
-}
-
-+ (NSURLSessionTask *)assistHttpModelForInterface:(NSString *)interface parameter:(NSDictionary *)parameter success:(void (^)(NSInteger code, NSString *msg, id responseObject, BOOL status, id model))success failure:(void (^)(NSURLSessionTask *task, NSError *error))failure
-{
-    return [[self class] postForInterfaceName:interface Parameter:parameter success:^(NSURLSessionTask *task, id responseObject) {
-        SVDismiss;
-        
-        NSInteger code = [responseObject[@"code"] integerValue];
-        NSString *msg = responseObject[@"msg"];
-        id model = [[self class] initWithDictionary:responseObject[@"data"]];
-        success ? success(code, msg, responseObject, (code == 0) ? YES : NO, model) : nil;
-
-    } failure:^(NSURLSessionTask *task, NSError *error) {
-        SVDismiss;
-        
-        if (!failure) {ShowAlert(@"网络似乎抽风了");}
-        failure ? failure(task, error) : nil;
-
-    }];
-}
-
-+ (NSURLSessionTask *)assistHttpMultiModelForInterface:(NSString *)interface parameter:(NSDictionary *)parameter success:(void (^)(NSInteger code, NSString *msg, id responseObject, BOOL status, NSArray *models))success failure:(void (^)(NSURLSessionTask *task, NSError *error))failure
-{
-    return [[self class] postForInterfaceName:interface Parameter:parameter success:^(NSURLSessionTask *task, id responseObject) {
-        SVDismiss;
-        
-        NSInteger code = [responseObject[@"code"] integerValue];
-        NSString *msg = responseObject[@"msg"];
-        NSMutableArray *ay = [NSMutableArray array];
-        if (code == 0 && ![responseObject[@"data"] isEqual:[NSNull null]]) {
-            [responseObject[@"data"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                [ay addObject:[[self class] initWithDictionary:obj]];
-            }];
-        }
-        success ? success(code, msg, responseObject, (code == 0) ? YES : NO, ay) : nil;
-    } failure:^(NSURLSessionTask *task, NSError *error) {
-        SVDismiss;
-        
-        if (!failure) {ShowAlert(@"网络似乎抽风了");}
-        failure ? failure(task, error) : nil;
-    }];
-    
-}
 
 #pragma mark - SDWebImage
 - (NSURL *)sd_urlWithString:(NSString *)urlString;
@@ -221,4 +86,230 @@ static char CallBackKey;
     }
     return [NSURL URLWithString:urlString];
 }
+
+
+@end
+
+
+
+
+
+
+#pragma mark - Associated-NSURLSessionTask
+@interface NSURLSessionTask (HttpHandle)
+
+- (void)setTaskIdentifierString:(NSString *)indentifier;
+
+- (NSString *)taskIdentifierString;
+
+@end
+
+@implementation NSURLSessionTask (HttpHandle)
+
+
+- (void)setTaskIdentifierString:(NSString *)indentifier
+{
+    objc_setAssociatedObject(self, @selector(taskIdentifierString), indentifier, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSString *)taskIdentifierString
+{
+    NSString *_indentifier = objc_getAssociatedObject(self, _cmd);
+    return _indentifier;
+}
+
+@end
+
+
+
+@implementation NSObject (HttpHandle)
+
+- (void)cancelRequesetTaskWithInterFaceName:(NSString *)interfaceName;
+{
+    NSMutableArray *array = [[[self arrayTasks] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"taskIdentifierString == %@", interfaceName]] mutableCopy];
+    [array enumerateObjectsUsingBlock:^(NSURLSessionTask *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj cancel];
+        [array removeObject:obj];
+    }];
+}
+
+- (void)cancelAllRequesetTask;
+{
+    [[self arrayTasks] enumerateObjectsUsingBlock:^(NSURLSessionTask *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj cancel];
+    }];
+    [[self arrayTasks] removeAllObjects];
+}
+
+
+- (NSURLSessionTask *)assistHttpForInterface:(NSString *)interface parameter:(NSDictionary *)parameter httpBefore:(void(^)(void))httpBefore success:(void (^)(NSInteger code, NSString *msg, id responseObject, BOOL status))success failure:(void (^)(NSURLSessionTask *task, NSError *error))failure
+{
+    
+    if (httpBefore) {
+        httpBefore();
+    }else {
+        SVShowStatus(nil);
+    }
+    
+    return [self postForInterfaceName:interface Parameter:parameter success:^(NSURLSessionTask *task, id responseObject) {
+        [self httpRequestSuccess];
+        if ([responseObject isKindOfClass:[NSError class]])
+            return;
+        
+        NSInteger code = [responseObject[@"code"] integerValue];
+        NSString *msg = responseObject[@"msg"];
+        success ? success(code, msg, responseObject, (code == 0) ? YES : NO) : nil;
+        
+    } failure:^(NSURLSessionTask *task, NSError *error) {
+        [self httpRequestFailure];
+        
+        failure ? failure(task, error) : nil;
+    }];
+}
+
+- (NSURLSessionTask *)assistHttpSingleModelForInterface:(NSString *)interface parameter:(NSDictionary *)parameter modelClass:(Class)modelClass httpBefore:(void(^)(void))httpBefore success:(void (^)(NSInteger code, NSString *msg, id responseObject, BOOL status, id model))success failure:(void (^)(NSURLSessionTask *task, NSError *error))failure
+{
+    
+    if (httpBefore) {
+        httpBefore();
+    }else {
+        SVShowStatus(nil);
+    }
+    
+    return [self postForInterfaceName:interface Parameter:parameter success:^(NSURLSessionTask *task, id responseObject) {
+        [self httpRequestSuccess];
+        if ([responseObject isKindOfClass:[NSError class]])
+            return;
+        
+        NSInteger code = [responseObject[@"code"] integerValue];
+        NSString *msg = responseObject[@"msg"];
+        id model = [modelClass mj_objectWithKeyValues:responseObject];
+        success ? success(code, msg, responseObject, (code == 0) ? YES : NO, model) : nil;
+        
+    } failure:^(NSURLSessionTask *task, NSError *error) {
+        [self httpRequestFailure];
+        
+        failure ? failure(task, error) : nil;
+        
+    }];
+}
+
+- (NSURLSessionTask *)assistHttpMultiModelForInterface:(NSString *)interface parameter:(NSDictionary *)parameter modelClass:(Class)modelClass  httpBefore:(void(^)(void))httpBefore success:(void (^)(NSInteger code, NSString *msg, id responseObject, BOOL status, NSArray *models))success failure:(void (^)(NSURLSessionTask *task, NSError *error))failure
+{
+    
+    if (httpBefore) {
+        SVShowStatus(nil);
+        httpBefore();
+    }
+    
+    return [self postForInterfaceName:interface Parameter:parameter success:^(NSURLSessionTask *task, id responseObject) {
+        [self httpRequestSuccess];
+        if ([responseObject isKindOfClass:[NSError class]])
+            return;
+        
+        NSInteger code = [responseObject[@"code"] integerValue];
+        NSString *msg = responseObject[@"msg"];
+        NSMutableArray *ay = [modelClass mj_objectArrayWithKeyValuesArray:nil];
+        success ? success(code, msg, responseObject, (code == 0) ? YES : NO, ay) : nil;
+    } failure:^(NSURLSessionTask *task, NSError *error) {
+        [self httpRequestFailure];
+        
+        failure ? failure(task, error) : nil;
+    }];
+    
+}
+
+
+#pragma mark - Private Methods
+
+- (NSString *)customInterface:(NSString *)interface
+{
+    return [NSString stringWithFormat:@"%@/%@", InterfaceUrl, interface];
+}
+
+- (NSDictionary *)customParameter:(NSDictionary *)parameter
+{
+    return [self customParameter:parameter interface:nil];
+}
+
+- (NSDictionary *)customParameter:(NSDictionary *)parameter interface:(NSString *)interface
+{
+    if (interface) {
+        //  某些请求是把接口名称也放在参数里面的
+    }
+    
+    return parameter;
+}
+
+- (AFHTTPSessionManager *)customHttpSessionManager
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [[User shareInstance] accessToken] ? [manager.requestSerializer setValue:[[User shareInstance] accessToken] forHTTPHeaderField:@"X-Access-Token"] : nil;
+    return manager;
+}
+
+
+
+- (NSURLSessionTask *)getForInterfaceName:(NSString *)interfaceName Parameter:(NSDictionary *)parameter success:(void (^)(NSURLSessionTask *task, id responseObject))success failure:(void (^)(NSURLSessionTask *task, NSError *error))failure;
+{
+    NSURLSessionTask *task = [[self customHttpSessionManager] GET:[self customInterface:interfaceName] parameters:[self customParameter:parameter] progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success ? success(task, responseObject) : nil;
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure ? failure(task, error) : nil;
+    }];
+    
+    
+    [task setTaskIdentifierString:interfaceName];
+    [[self arrayTasks] addObject:task];
+    
+    return task;
+}
+
+- (NSURLSessionTask *)postForInterfaceName:(NSString *)interfaceName Parameter:(NSDictionary *)parameter success:(void (^)(NSURLSessionTask *task, id responseObject))success failure:(void (^)(NSURLSessionTask *task, NSError *error))failure;
+{
+    NSURLSessionTask *task = [[self customHttpSessionManager] POST:[self customInterface:interfaceName] parameters:[self customParameter:parameter] progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success ? success(task, responseObject) : nil;
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        success ? success(task, error) : nil;
+    }];
+    
+    
+    [task setTaskIdentifierString:interfaceName];
+    [[self arrayTasks] addObject:task];
+    
+    return task;
+}
+
+
+- (void)httpRequestSuccess
+{
+    SVDismiss;
+}
+
+- (void)httpRequestFailure
+{
+    SVDismiss;
+}
+
+
+
+#pragma mark - Associated-NSObject
+- (void)setArrayTasks:(NSMutableArray *)array
+{
+    objc_setAssociatedObject(self, @selector(arrayTasks), array, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSMutableArray *)arrayTasks
+{
+    NSMutableArray *_arrayTasks = objc_getAssociatedObject(self, _cmd);
+    if (!_arrayTasks) {
+        [self setArrayTasks:[NSMutableArray array]];
+    }
+    _arrayTasks = objc_getAssociatedObject(self, _cmd);
+    return _arrayTasks;
+}
+
 @end

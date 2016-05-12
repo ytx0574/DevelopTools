@@ -431,7 +431,7 @@ static const NSTimeInterval RACSignalAsynchronousWaitTimeout = 10;
 }
 
 + (RACSignal *)startWithScheduler:(RACScheduler *)scheduler block:(id (^)(BOOL *success, NSError **error))block {
-	return [[self startWithScheduler:scheduler subjectBlock:^(id<RACSubscriber> subscriber) {
+	return [[self startWithScheduler:scheduler subjectBlock:^(id/*<RACSubscriber>*/ subscriber) {
 		BOOL success = YES;
 		NSError *error = nil;
 		id returned = block(&success, &error);

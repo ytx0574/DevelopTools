@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 /**
- 本地化对象， 继承该类的对象实例， 可进行本地化存储与读取
+ 本地化对象， 继承该类的对象实例， 可进行本地化存储与读取, 仅保存一个实例, 属性字段仅基本类型
  */
-@interface LocalStorage : NSObject
+@interface LocalStorageHelper : NSObject
 
 /**初始化对象，并从本地读取值    最好是单例对象使用*/
 - (instancetype)initWithLocalStore;

@@ -10,6 +10,10 @@
 #import "AFHTTPSessionManager.h"
 #import "Model.h"
 #import <objc/runtime.h>
+#import "NSObject+MJKeyValue.h"
+
+
+#import "HttpRequest.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *fsd;
@@ -133,9 +137,9 @@ static void stringCleanUp(__strong NSString **string)
     
     
     
-    NSLog(@"%@  %@", [[User shareInstance] account], [[Model shareInstance] a])
+//    NSLog(@"%@  %@", [[User shareInstance] account], [[Model shareInstance] a])
     
-    [[User shareInstance] setInfo:@{@"account": @"草泥马"} saveLocal:YES];
+//    [[User shareInstance] setInfo:@{@"account": @"草泥马"} saveLocal:YES];
     
     
     
@@ -183,6 +187,38 @@ static void stringCleanUp(__strong NSString **string)
                               withString:@""];
     
     [self valueChangeNotificationWithPropertyName:propertyName value:value];
+}
+
+
+
+
+- (IBAction)clickStart:(id)sender {
+    
+    
+//    [self postForInterfaceName:InterFace_Login Parameter:@{@"mobile": @"18623689565", @"password": @"111111", @"channelId": @"111", @"channelType": @"1"} success:^(NSURLSessionTask *task, id responseObject) {
+//        
+//    } failure:^(NSURLSessionTask *task, NSError *error) {
+//        
+//    }];
+//    [self assistHttpForInterface:InterFace_Login parameter:@{@"mobile": @"18623689565", @"password": @"111111", @"channelId": @"111", @"channelType": @"1"} httpBefore:nil success:^(NSInteger code, NSString *msg, id responseObject, BOOL status) {
+//        
+//    } failure:^(NSURLSessionTask *task, NSError *error) {
+//        
+//    }];
+    
+    [self assistHttpSingleModelForInterface:InterFace_Login parameter:@{@"mobile": @"18623689565", @"password": @"111111", @"channelId": @"111", @"channelType": @"1"} modelClass:[User class] httpBefore:^{
+        ShowAlert(@"H_H")
+    } success:^(NSInteger code, NSString *msg, id responseObject, BOOL status, id model) {
+        
+        [model saveLocalWithPwd:@"111111"];
+    } failure:^(NSURLSessionTask *task, NSError *error) {
+        
+    }];
+    
+//    [self cancelAllRequesetTask];
+}
+
+- (IBAction)clickStop:(id)sender {
 }
 
 @end

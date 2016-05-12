@@ -6,20 +6,20 @@
 //  Copyright © 2016 Johnson. All rights reserved.
 //
 
-#import "LocalStorage.h"
+#import "LocalStorageHelper.h"
 #import <objc/runtime.h>
 
-@implementation LocalStorage
+@implementation LocalStorageHelper
+
 #pragma mark - 对象本地化
-static char LocalUserDafaultsKey;
 - (NSUserDefaults *)userDefaultForLocalInstance
 {
-    return objc_getAssociatedObject(self, &LocalUserDafaultsKey);
+    return objc_getAssociatedObject(self, _cmd);
 }
 
 - (void)setUserDefaultForLocalInstance:(NSUserDefaults *)userDefaultForLocalInstance
 {
-    objc_setAssociatedObject(self, &LocalUserDafaultsKey, userDefaultForLocalInstance, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(userDefaultForLocalInstance), userDefaultForLocalInstance, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (instancetype)initWithLocalStore;

@@ -14,8 +14,8 @@
 #define FunctionSwitch_UM                  false
 
 
-#warning        1=ReleaseUrl, 2=TestUrl, 3=Fixed IP, Please configuration The "InterfaceUrl"
-#define InterfaceUrlType                   1
+#warning        1=ReleaseUrl, 2=TestUrl, 3=DevUrl, 4=Fixed IP, Please configuration The "InterfaceUrl"
+#define InterfaceUrlType                   3
 
 
 
@@ -60,14 +60,19 @@ static NSString *localDescription =             @"localDescription";
 
 #elif InterfaceUrlType == 2
 
-    #define InterfaceUrl                        @"http://test.hongmaofalv.com/hmfl3"
+    #define InterfaceUrl                        @"http://whojoin-appserver-test.obaymax.com"
+
+#elif InterfaceUrlType == 3
+
+#define InterfaceUrl                            @"http://whojoin-appserver-dev.obaymax.com"
 
 #else
 
-    #define InterfaceUrl                        @"http://192.168.1.3:8080/hmfl3"
+    #define InterfaceUrl                        @"http://192.168.0.105:8081"
 
 #endif
 
 
 
 #pragma mark - InterfaceName
+#define InterFace_Login                          @"/user/login"
